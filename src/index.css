@@ -64,3 +64,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .scrollbar-green::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .scrollbar-green::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .scrollbar-green::-webkit-scrollbar-thumb {
+    background: #22c55e; /* This is the Tailwind green-500 color */
+  }
+
+  .scrollbar-green::-webkit-scrollbar-thumb:hover {
+    background: #16a34a; /* This is the Tailwind green-600 color for hover effect */
+  }
+}
