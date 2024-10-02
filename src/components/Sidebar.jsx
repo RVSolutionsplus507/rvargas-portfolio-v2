@@ -17,12 +17,12 @@ import { LanguageButton } from "@/components/languagebutton";
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-
-
-const roles = ["FullStack Developer", "IT Manager", "Senior System Engineer"];
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
+  const { t } = useTranslation("sidebar");
   const [currentRole, setCurrentRole] = useState(0);
+  const roles = [t("role1"), t("role2"), t("role3")];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,12 +30,12 @@ const Sidebar = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [roles.length]);
 
   return (
     <>
       <div className="flex flex-col h-full">
-        <div className="flex justify-around mb-5">
+        <div className="flex justify-around mb-2">
           <Darkmode className="text-[7%]" />
           <LanguageButton />
         </div>
@@ -68,7 +68,7 @@ const Sidebar = () => {
                   className="w-full justify-start"
                 >
                   <FiUser className="mr-2 h-4 w-4" />
-                  About Me
+                  {t("aboutme")}
                 </Button>
               )}
             </NavLink>
@@ -79,7 +79,7 @@ const Sidebar = () => {
                   className="w-full justify-start"
                 >
                   <IoCloudDownloadOutline className="mr-2 h-4 w-4" />
-                  Resume
+                  {t("resume")}
                 </Button>
               )}
             </NavLink>
@@ -90,7 +90,7 @@ const Sidebar = () => {
                   className="w-full justify-start"
                 >
                   <FiFolder className="mr-2 h-4 w-4" />
-                  Projects
+                  {t("projects")}
                 </Button>
               )}
             </NavLink>
@@ -101,7 +101,7 @@ const Sidebar = () => {
                   className="w-full justify-start"
                 >
                   <FiMail className="mr-2 h-4 w-4" />
-                  Contact Me
+                  {t("contact")}
                 </Button>
               )}
             </NavLink>
@@ -110,7 +110,9 @@ const Sidebar = () => {
 
         <Separator className="my-4" />
         <div className="flex flex-col items-center space-y-4 font-bold">
-          <h3>rvargas@rv-solutions.net</h3>
+          <a href="mailto:rvargas@rv-solutions.net" className=" hover:underline hover:text-green-500">
+            rvargas@rv-solutions.net
+          </a>
         </div>
 
         <Separator className="my-4" />
@@ -119,7 +121,7 @@ const Sidebar = () => {
           <div className="flex justify-center space-x-4">
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/RVSolutionsplus507"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -129,7 +131,7 @@ const Sidebar = () => {
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/roberto-j-vargas-d-69631159/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -139,7 +141,7 @@ const Sidebar = () => {
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://twitter.com/yourusername"
+                href="https://x.com/devrvsplus/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -148,8 +150,8 @@ const Sidebar = () => {
               </a>
             </Button>
           </div>
-          <p className="text-center text-sm text-muted-foreground mt-4">
-            © 2023 rvargas.dev All rights reserved.
+          <p className="text-center text-sm text-muted-foreground mt-2 ">
+            {t("footer")}
           </p>
         </footer>
       </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
@@ -7,14 +7,38 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useTranslation } from 'react-i18next'
+import { sendCustomEmail } from "@/components/email";
 
 export default function ContactPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { t } = useTranslation("contact")
+  const { register, reset, handleSubmit, formState: { errors } } = useForm()
   const [isSubmitted, setIsSubmitted] = useState(false)
+//   const [details, setDetails] = useState({
+//     name: "",
+//     email: "",
+//     phone: "",
+//     message: ""
+// });
+
+useEffect(() => {
+  let intervalId;
+
+  if (isSubmitted) {
+      intervalId = setInterval(() => {
+          setIsSubmitted(false);
+      }, 3000);
+  }
+
+  return () => {
+      clearInterval(intervalId);
+  };
+}, [isSubmitted]);
 
   const onSubmit = (data) => {
-    console.log(data)
+    sendCustomEmail(data);
     setIsSubmitted(true)
+    reset()
     confetti({
       particleCount: 100,
       spread: 70,
@@ -30,8 +54,8 @@ export default function ContactPage() {
         transition={{ duration: 0.5 }}
         className="pt-8 text-center"
       >
-        <h1 className="text-4xl font-bold">Contact Me</h1>
-        <p className="mt-2 text-xl text-primary">I love to hear from you!</p>
+        <h1 className="text-4xl font-bold">{t("contact")}</h1>
+        <p className="mt-2 text-xl text-primary">{t("hear")}</p>
       </motion.header>
 
       <main className="container mx-auto px-4 py-4">
@@ -43,41 +67,52 @@ export default function ContactPage() {
           >
             <Card>
               <CardHeader>
-                <CardTitle>Get in Touch</CardTitle>
-                <CardDescription>Fill out the form and I will get back to you as soon as possible.</CardDescription>
+                <CardTitle>{t("touch")}</CardTitle>
+                <CardDescription>{t("description")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                   <div>
                     <Input
-                      {...register("name", { required: "Name is required" })}
-                      placeholder="Your Name"
+                      {...register("name", { required: t("namerequired")})}
+                      placeholder={t("name")}
+                      
                     />
                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                   </div>
                   <div>
                     <Input
+                      {...register("phone", { required: t("cellphonerequired") })}
+                      placeholder={t("cellphone")}
+                      
+                    />
+                    {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
+                  </div>
+                  <div>
+                    <Input
                       {...register("email", { 
-                        required: "Email is required",
+                        required: t("emailrequired"),
                         pattern: {
                           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: "Invalid email address"
+                          message: t("invalidemail")
                         }
                       })}
-                      placeholder="Your Email"
+                      placeholder={t("email")}
+                      
                     />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                   </div>
                   <div>
                     <Textarea
-                      {...register("message", { required: "Message is required" })}
-                      placeholder="Your Message"
+                      {...register("message", { required: t("messagerequired")})}
+                      placeholder={t("message")}
                       rows={4}
+                     
                     />
                     {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
                   </div>
                   <Button type="submit" className="w-full">
-                    Send Message
+                  {t("send")}
                   </Button>
                 </form>
               </CardContent>
@@ -91,8 +126,8 @@ export default function ContactPage() {
           >
             <Card>
               <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
-                <CardDescription>You can also reach me using the following information.</CardDescription>
+                <CardTitle>{t("contactinfo")}</CardTitle>
+                <CardDescription>{t("contactdescription")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center space-x-2">
@@ -138,8 +173,8 @@ export default function ContactPage() {
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
         >
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-            <h2 className="text-2xl font-bold text-green-600 mb-4">Thank You!</h2>
-            <p className="text-gray-700">Your message has been sent successfully.</p>
+            <h2 className="text-2xl font-bold text-green-600 mb-4">{t("thanks")}</h2>
+            <p className="text-gray-700">{t("messagedelivered")}</p>
             <Button onClick={() => setIsSubmitted(false)} className="mt-4">
               Close
             </Button>

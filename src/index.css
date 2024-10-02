@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -27,7 +30,8 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
+    --font-family: 'Roboto', sans-serif;
   }
   .dark {
     --background: 0 0% 0%; /* Black */
@@ -56,12 +60,15 @@
     --chart-5: 0 0% 0%; /* Black */
   }
 }
+
 @layer base {
   * {
     @apply border-border;
+    font-family: var(--font-family);
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-family);
   }
 }
 
@@ -75,10 +82,10 @@
   }
 
   .scrollbar-green::-webkit-scrollbar-thumb {
-    background: #22c55e; /* This is the Tailwind green-500 color */
+    background: #22c55e; 
   }
 
   .scrollbar-green::-webkit-scrollbar-thumb:hover {
-    background: #16a34a; /* This is the Tailwind green-600 color for hover effect */
+    background: #16a34a; 
   }
 }

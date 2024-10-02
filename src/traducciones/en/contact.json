@@ -1,0 +1,21 @@
+{
+    "contact": "Contact Me",
+    "hear": "I'd love to offer you my services!",
+    "touch": "Get in touch with me",
+    "description": "Fill out the form and I will get back to you as soon as possible.",
+    "name": "Name",
+    "namerequired": "Name is required",
+    "cellphonerequired": "Phone is required",
+    "cellphone": "Phone",
+    "emailrequired": "Email is required",
+    "invalidemail": "Invalid email address",
+    "email": "Email",
+    "message": "Message",
+    "messagerequired": "Message is required",
+    "send": "Send Message",
+    "contactinfo": "Contact Information",
+    "contactdescription": "You can also reach me using the following information.",
+    "thanks": "Thank you!",
+    "messagedelivered": "Your message has been sent successfully."
+
+}

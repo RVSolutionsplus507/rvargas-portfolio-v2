@@ -1,0 +1,20 @@
+{
+  "projects": "My Projects",
+  "projectdescription": "Explore my latest work and side projects.",
+  "search": "Search projects...",
+  "demo": "Live Demo",
+  "noprojects": "No projects found matching your search.",
+  "loading": "Loading projects...",
+  "title1": "SBM - Electric System",
+  "description1": "A business solution for reading KWatts at Pedestals and Billing for a Marina",
+  "title2": "Request Form",
+  "description2": "Business solution for managing customer requests",
+  "title3": "E-commerce Template",
+  "description3": "E-commerce template for any online store",
+  "title4": "Mauad&Mauad - Website",
+  "description4": "Mauad&Mauad Law Firm Website - Under Construction",
+  "title5": "SBM - Route System",
+  "description5": "Upcoming business solution for transportation ticket reservations",
+  "title6": "Conference Room Booking",
+  "description6": "Upcoming business system for conference room reservations"
+}

@@ -1,0 +1,20 @@
+{
+    "contact": "Contáctame",
+    "hear": "¡Me encantaría ofrecerte mis servicios!",
+    "touch": "Ponte en contacto conmigo",
+    "description": "Llena el formulario y te responderé lo antes posible.",
+    "name": "Nombre & Apellido",
+    "namerequired": "El nombre es obligatorio",
+    "cellphonerequired": "El teléfono es obligatorio",
+    "cellphone": "Teléfono",
+    "emailrequired": "El correo electrónico es obligatorio",
+    "invalidemail": "Dirección de correo electrónico no válida",
+    "email": "Correo Electrónico",
+    "message": "Mensaje",
+    "messagerequired": "El mensaje es obligatorio",
+    "send": "Enviar Mensaje",
+    "contactinfo": "Información de Contacto",
+    "contactdescription": "También puedes contactarme usando la siguiente información.",
+    "thanks": "¡Gracias!",
+    "messagedelivered": "Tu mensaje ha sido enviado con éxito."
+}

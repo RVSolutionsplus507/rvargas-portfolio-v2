@@ -9,38 +9,40 @@ import {
 import { Carousel } from "@/components/ui/carousel";
 import { Badge } from "@/components/ui/badge";
 import { FiBook, FiCode, FiAward } from "react-icons/fi";
-import { FaPlane, FaSmile, FaStar } from "react-icons/fa"; 
+import { FaPlane, FaSmile, FaStar } from "react-icons/fa";
 import BrandsFront from "@/components/brandsfront";
 import BrandsBack from "@/components/brandsback";
+import { useTranslation } from "react-i18next";
 
 function AboutMe() {
+  const [t] = useTranslation("aboutme");
   const reviews = [
     {
-      image: "https://via.placeholder.com/150",
+      image: "/src/assets/ReviewsImages/mauad.webp",
       name: "Mauad & Mauad",
-      content:
-        "Exceptional IT Manager who consistently delivered high-quality projects ahead of schedule and beyond expectations.",
+      content: t("contentreview1"),
       rating: 5,
     },
     {
-      image: "https://via.placeholder.com/150",
+      image: "/src/assets/ReviewsImages/jd.webp",
       name: "Jacinta Delgado",
-      content: "A top-notch expert who delivers outstanding results. I wouldn't hesitate to recommend them to anyone.",
+      content: t("contentreview2"),
+        
       rating: 5,
     },
     {
-      image: "https://via.placeholder.com/150",
+      image: "/src/assets/ReviewsImages/juanjo.webp",
       name: "Juan Boschetti",
-      content: "With his analytical and professional approach, he can develop exceptional platforms and streamline our internal operations.",
+      content: t("contentreview3"),
       rating: 5,
     },
   ];
 
   const timeline = [
-    { year: 2013, event: "Senior Tech Support" },
-    { year: 2015, event: "IT Manager" },
-    { year: 2023, event: "FullStack Developer" },
-    { year: 2024, event: "Latino Tech Leader at Tribu" },
+    { year: 2013, event: t("timeline1") },
+    { year: 2015, event: t("timeline2") },
+    { year: 2023, event: t("timeline3") },
+    { year: 2024, event: t("timeline4") },
   ];
 
   const cardVariants = {
@@ -50,7 +52,7 @@ function AboutMe() {
 
   return (
     <div className="container mx-auto p-6 overflow-y-auto">
-      <h1 className="text-4xl font-bold mb-8">About Me</h1>
+      <h1 className="text-4xl font-bold mb-8">{t("about")}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <motion.div
@@ -62,29 +64,23 @@ function AboutMe() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">Who Am I?</CardTitle>
+              <CardTitle className="font-bold text-[#189b49]">
+              {t("whoami")}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                IT professional, passionate and versatile with a proven track
-                record of delivering exceptional results, My expertise lies in
-                leveraging cutting-edge technology to drive innovation, enhance
-                technological platforms, and optimize resource utilization for
-                companies. I am committed to providing a seamless and efficient IT
-                experience for my clients, ensuring that their technological needs
-                are met with the utmost professionalism and expertise. When Im not
-                coding, you can find me exploring new techs, on travel or sleeping
-                =).
+              {t("whoamicontent")}
               </p>
               <div className="lg:flex mt-4 lg:space-x-2 md:grid md:grid-col-2">
                 <Badge variant="default">
-                  <FiCode className="mr-1" /> Developer
+                  <FiCode className="mr-1" />{t("badge1")}
                 </Badge>
                 <Badge variant="default">
-                  <FaPlane className="mr-1" /> Inveterate Traveler
+                  <FaPlane className="mr-1" /> {t("badge2")}
                 </Badge>
                 <Badge variant="default">
-                  <FaSmile className="mr-1" /> Optimistic
+                  <FaSmile className="mr-1" /> {t("badge2")}
                 </Badge>
               </div>
             </CardContent>
@@ -100,13 +96,17 @@ function AboutMe() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">Skills</CardTitle>
-              <CardDescription>My technical proficiencies</CardDescription>
+              <CardTitle className="font-bold text-[#189b49]">{t("skillstitle")}</CardTitle>
+              <CardDescription>{t("skillsdescription")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <CardTitle className="font-bold text-[#189b49]">FrontEnd</CardTitle>
+              <CardTitle className="font-bold text-[#189b49]">
+              {t("skilltitlefront")}
+              </CardTitle>
               <BrandsFront />
-              <CardTitle className="font-bold text-[#189b49]">BackEnd</CardTitle>
+              <CardTitle className="font-bold text-[#189b49]">
+              {t("skilltitleback")}
+              </CardTitle>
               <BrandsBack />
             </CardContent>
           </Card>
@@ -121,8 +121,10 @@ function AboutMe() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">My Journey</CardTitle>
-              <CardDescription>Key milestones in my career</CardDescription>
+              <CardTitle className="font-bold text-[#189b49]">
+              {t("timelinetitle")}
+              </CardTitle>
+              <CardDescription>{t("timelinedescription")}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -154,24 +156,26 @@ function AboutMe() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">Education</CardTitle>
+              <CardTitle className="font-bold text-[#189b49]">
+              {t("educationtitle")}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex items-center space-x-2">
                 <FiBook className="text-muted-foreground" />
-                <span>System Engineer</span>
+                <span> {t("education1")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <FiAward className="text-muted-foreground" />
-                <span>Full-Stack Web Development Certification (4Geeks)</span>
+                <span> {t("education2")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <FiAward className="text-muted-foreground" />
-                <span>Project Management (ADEN)</span>
+                <span> {t("education3")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <FiAward className="text-muted-foreground" />
-                <span>IT Support Professional Certificate (Google)</span>
+                <span> {t("education4")}</span>
               </div>
             </CardContent>
           </Card>
@@ -185,14 +189,16 @@ function AboutMe() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">Interests</CardTitle>
+              <CardTitle className="font-bold text-[#189b49]">
+              {t("interests")}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                <li>Freelance Web/APP Developer</li>
-                <li>Process Automatation</li>
-                <li>Network Infraestructure</li>
-                <li>FullStack Projects</li>
+                <li>{t("interests1")}</li>
+                <li>{t("interests2")}</li>
+                <li>{t("interests3")}</li>
+                <li>{t("interests4")}</li>
               </ul>
             </CardContent>
           </Card>
@@ -207,8 +213,10 @@ function AboutMe() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">Reviews</CardTitle>
-              <CardDescription>What people say about me</CardDescription>
+              <CardTitle className="font-bold text-[#189b49]">
+              {t("reviewstitle")}
+              </CardTitle>
+              <CardDescription>{t("reviewsdescription")}</CardDescription>
             </CardHeader>
             <CardContent>
               <Carousel className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -220,7 +228,7 @@ function AboutMe() {
                     <img
                       src={review.image}
                       alt={review.name}
-                      className="w-24 h-24 rounded-full"
+                      className="w-24 h-24 rounded-full object-contain dark:bg-white"
                     />
                     <h3 className="text-lg font-semibold">{review.name}</h3>
                     <p className="text-center">{review.content}</p>
