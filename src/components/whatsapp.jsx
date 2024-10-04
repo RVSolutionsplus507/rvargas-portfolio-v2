@@ -1,6 +1,6 @@
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
-import CompanyIcon from "@/assets/fotoRV.png";
+import CompanyIcon from "@/assets/fotoRV.webp";
 import { useTranslation } from "react-i18next";
 
 function Whatsapp() {

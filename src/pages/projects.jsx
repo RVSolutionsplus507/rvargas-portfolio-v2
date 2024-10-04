@@ -15,24 +15,24 @@ import { Input } from "@/components/ui/input";
 import ImageModal from "@/components/imagesmodal";
 import { useTranslation } from "react-i18next";
 
-import imageproject1 from "@/assets/Projects/electricsbm/electricportada.png";
-import imageproject2 from "@/assets/Projects/solicitud/solicitudportada.png";
-import imageproject3 from "@/assets/Projects/rvsstore/storeportada.png";
-import imageproject4 from "@/assets/Projects/mauad/mauadportada.png";
+import imageproject1 from "@/assets/Projects/electricsbm/electricportada.webp";
+import imageproject2 from "@/assets/Projects/solicitud/solicitudportada.webp";
+import imageproject3 from "@/assets/Projects/rvsstore/storeportada.webp";
+import imageproject4 from "@/assets/Projects/mauad/mauadportada.webp";
 import imageproject5 from "@/assets/Projects/soon.webp";
 
-import otherimageelectric1 from "@/assets/Projects/electricsbm/electric1.png";
-import otherimageelectric2 from "@/assets/Projects/electricsbm/electric2.png";
-import otherimageelectric3 from "@/assets/Projects/electricsbm/electric3.png";
-import otherimageelectric4 from "@/assets/Projects/electricsbm/electric4.png";
+import otherimageelectric1 from "@/assets/Projects/electricsbm/electric1.webp";
+import otherimageelectric2 from "@/assets/Projects/electricsbm/electric2.webp";
+import otherimageelectric3 from "@/assets/Projects/electricsbm/electric3.webp";
+import otherimageelectric4 from "@/assets/Projects/electricsbm/electric4.webp";
 
-import otherimagesolicitud1 from "@/assets/Projects/solicitud/solicitud1.png";
-import otherimagesolicitud2 from "@/assets/Projects/solicitud/solicitud2.png";
+import otherimagesolicitud1 from "@/assets/Projects/solicitud/solicitud1.webp";
+import otherimagesolicitud2 from "@/assets/Projects/solicitud/solicitud2.webp";
 
 
-import otherimagervsstore1 from "@/assets/Projects/rvsstore/store1.png";
-import otherimagervsstore2 from "@/assets/Projects/rvsstore/store2.png";
-import otherimagervsstore3 from "@/assets/Projects/rvsstore/store3.png";
+import otherimagervsstore1 from "@/assets/Projects/rvsstore/store1.webp";
+import otherimagervsstore2 from "@/assets/Projects/rvsstore/store2.webp";
+import otherimagervsstore3 from "@/assets/Projects/rvsstore/store3.webp";
 
 
 

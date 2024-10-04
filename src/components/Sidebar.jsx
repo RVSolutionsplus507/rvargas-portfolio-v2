@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import mainimage from "@/assets/fotoRV.png";
+import mainimage from "@/assets/fotoRV.webp";
 import { Darkmode } from "@/components/darkmode";
 import { LanguageButton } from "@/components/languagebutton";
 
