@@ -1,14 +1,14 @@
-import * as React from "react"
+import { createContext, forwardRef, useContext, useEffect, useState, useCallback } from "react"
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons"
 import useEmblaCarousel from "embla-carousel-react";
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
-const CarouselContext = React.createContext(null)
+const CarouselContext = createContext(null)
 
 function useCarousel() {
-  const context = React.useContext(CarouselContext)
+  const context = useContext(CarouselContext)
 
   if (!context) {
     throw new Error("useCarousel must be used within a <Carousel />")
@@ -17,7 +17,7 @@ function useCarousel() {
   return context
 }
 
-const Carousel = React.forwardRef((
+const Carousel = forwardRef((
   {
     orientation = "horizontal",
     opts,
@@ -33,10 +33,10 @@ const Carousel = React.forwardRef((
     ...opts,
     axis: orientation === "horizontal" ? "x" : "y",
   }, plugins)
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
-  const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(false)
 
-  const onSelect = React.useCallback((api) => {
+  const onSelect = useCallback((api) => {
     if (!api) {
       return
     }
@@ -45,15 +45,15 @@ const Carousel = React.forwardRef((
     setCanScrollNext(api.canScrollNext())
   }, [])
 
-  const scrollPrev = React.useCallback(() => {
+  const scrollPrev = useCallback(() => {
     api?.scrollPrev()
   }, [api])
 
-  const scrollNext = React.useCallback(() => {
+  const scrollNext = useCallback(() => {
     api?.scrollNext()
   }, [api])
 
-  const handleKeyDown = React.useCallback((event) => {
+  const handleKeyDown = useCallback((event) => {
     if (event.key === "ArrowLeft") {
       event.preventDefault()
       scrollPrev()
@@ -63,7 +63,7 @@ const Carousel = React.forwardRef((
     }
   }, [scrollPrev, scrollNext])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api || !setApi) {
       return
     }
@@ -71,7 +71,7 @@ const Carousel = React.forwardRef((
     setApi(api)
   }, [api, setApi])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api) {
       return
     }
@@ -112,7 +112,7 @@ const Carousel = React.forwardRef((
 })
 Carousel.displayName = "Carousel"
 
-const CarouselContent = React.forwardRef(({ className, ...props }, ref) => {
+const CarouselContent = forwardRef(({ className, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel()
 
   return (
@@ -130,7 +130,7 @@ const CarouselContent = React.forwardRef(({ className, ...props }, ref) => {
 })
 CarouselContent.displayName = "CarouselContent"
 
-const CarouselItem = React.forwardRef(({ className, ...props }, ref) => {
+const CarouselItem = forwardRef(({ className, ...props }, ref) => {
   const { orientation } = useCarousel()
 
   return (
@@ -148,7 +148,7 @@ const CarouselItem = React.forwardRef(({ className, ...props }, ref) => {
 })
 CarouselItem.displayName = "CarouselItem"
 
-const CarouselPrevious = React.forwardRef(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+const CarouselPrevious = forwardRef(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
   return (
@@ -169,7 +169,7 @@ const CarouselPrevious = React.forwardRef(({ className, variant = "outline", siz
 })
 CarouselPrevious.displayName = "CarouselPrevious"
 
-const CarouselNext = React.forwardRef(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+const CarouselNext = forwardRef(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
   return (
