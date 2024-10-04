@@ -34,6 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/aboutme",
+        index: true,
         element: <AboutMe />,
       },
     ],
