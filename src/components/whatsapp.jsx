@@ -24,6 +24,7 @@ function Whatsapp() {
             headerTitle="Roberto Vargas"
             btnTxt={t("submit")}
             iconSize="60"
+            position="right"
         />
     );
 }

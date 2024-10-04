@@ -47,7 +47,7 @@ useEffect(() => {
   }
 
   return (
-    <div className="min-h-screen pb-8">
+    <div className="mx-auto lg:p-6 overflow-x-hidden ">
       <motion.header
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -58,7 +58,7 @@ useEffect(() => {
         <p className="mt-2 text-xl text-primary">{t("hear")}</p>
       </motion.header>
 
-      <main className="container mx-auto px-4 py-4">
+      <main className="mx-auto py-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 mb-8">
           <motion.div
             initial={{ opacity: 0, x: -50 }}

@@ -55,7 +55,7 @@ function AboutMe() {
   };
 
   return (
-    <div className="container mx-auto p-6 overflow-y-auto">
+    <div className=" mx-auto lg:p-6 p-2 overflow-x-hidden lg:overflow-y-auto">
       <h1 className="text-4xl font-bold mb-8">{t("about")}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -153,7 +153,7 @@ function ProjectPage() {
   };
 
   return (
-    <div className="min-h-screen p-8 relative">
+    <div className="mx-auto lg:p-6 p-2 overflow-x-auto lg:overflow-y-auto relative">
       <motion.header
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}

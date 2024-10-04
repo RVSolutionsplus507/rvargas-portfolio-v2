@@ -100,7 +100,7 @@ const ResumePage = () => {
   };
 
   return (
-    <div className="min-h-screen text-foreground p-8">
+    <div className="mx-auto lg:p-6 p-2 overflow-x-hidden lg:overflow-y-auto text-foreground ">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
