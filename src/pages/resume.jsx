@@ -23,6 +23,9 @@ import {
 } from "@/components/ui/dialog";
 import { useTranslation } from "react-i18next";
 
+import resumeES from "@/assets/cv/Roberto-Vargas_CV_ES.pdf";
+import resumeEN from "@/assets/cv/Roberto-Vargas_CV_EN.pdf";
+
 const ResumePage = () => {
   const { t } = useTranslation("resume");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -86,7 +89,7 @@ const ResumePage = () => {
   ];
 
   const handleDownload = (lang) => {
-    const resumeUrl = lang === 'ES' ? "/src/assets/cv/Roberto-Vargas_CV_ES.pdf" : "/src/assets/cv/Roberto-Vargas_CV_EN.pdf";
+    const resumeUrl = lang === 'ES' ? resumeES : resumeEN;
     const link = document.createElement("a");
     link.href = resumeUrl;
     link.download = `Roberto-Vargas_CV_${lang}.pdf`;

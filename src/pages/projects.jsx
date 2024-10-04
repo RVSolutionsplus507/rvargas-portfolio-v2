@@ -15,6 +15,27 @@ import { Input } from "@/components/ui/input";
 import ImageModal from "@/components/imagesmodal";
 import { useTranslation } from "react-i18next";
 
+import imageproject1 from "@/assets/Projects/electricsbm/electricportada.png";
+import imageproject2 from "@/assets/Projects/solicitud/solicitudportada.png";
+import imageproject3 from "@/assets/Projects/rvsstore/storeportada.png";
+import imageproject4 from "@/assets/Projects/mauad/mauadportada.png";
+import imageproject5 from "@/assets/Projects/soon.webp";
+
+import otherimageelectric1 from "@/assets/Projects/electricsbm/electric1.png";
+import otherimageelectric2 from "@/assets/Projects/electricsbm/electric2.png";
+import otherimageelectric3 from "@/assets/Projects/electricsbm/electric3.png";
+import otherimageelectric4 from "@/assets/Projects/electricsbm/electric4.png";
+
+import otherimagesolicitud1 from "@/assets/Projects/solicitud/solicitud1.png";
+import otherimagesolicitud2 from "@/assets/Projects/solicitud/solicitud2.png";
+
+
+import otherimagervsstore1 from "@/assets/Projects/rvsstore/store1.png";
+import otherimagervsstore2 from "@/assets/Projects/rvsstore/store2.png";
+import otherimagervsstore3 from "@/assets/Projects/rvsstore/store3.png";
+
+
+
 function ProjectPage() {
   const { t } = useTranslation("projects");
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,21 +44,21 @@ function ProjectPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Lazy load the MoreButton component
+  
   const MoreButton = lazy(() => import("@/components/morebutton"));
 
-  // Sample project data
+
   const allProjects = [
     {
       id: 1,
       title: t("title1"),
       description: t("description1"),
-      image: "/src/assets/Projects/electricsbm/electricportada.png",
+      image: imageproject1,
       images: [
-        "/src/assets/Projects/electricsbm/electric1.png",
-        "/src/assets/Projects/electricsbm/electric2.png",
-        "/src/assets/Projects/electricsbm/electric3.png",
-        "/src/assets/Projects/electricsbm/electric4.png",
+        otherimageelectric1,
+        otherimageelectric2,
+        otherimageelectric3,
+        otherimageelectric4,
       ],
       tags: ["React", "Tailwind", "Express", "MySQL"],
       githubUrl: "https://github.com/RVSolutionsplus507",
@@ -47,11 +68,11 @@ function ProjectPage() {
       id: 2,
       title: t("title2"),
       description: t("description2"),
-      image: "/src/assets/Projects/solicitud/solicitudportada.png",
+      image: imageproject2,
       images: [
-        "/src/assets/Projects/solicitud/solicitud1.png",
-        "/src/assets/Projects/solicitud/solicitud2.png",
-        "/src/assets/Projects/solicitud/solicitudportada.png",
+        otherimagesolicitud1,
+        otherimagesolicitud2,
+        imageproject2,
       ],
       tags: ["React", "React Hook Form", "Firebase"],
       githubUrl: "https://github.com/RVSolutionsplus507/solicitud-almacenajes",
@@ -61,12 +82,12 @@ function ProjectPage() {
       id: 3,
       title: t("title3"),
       description: t("description3"),
-      image: "src/assets/Projects/rvsstore/storeportada.png",
+      image: imageproject3,
       images: [
-        "src/assets/Projects/rvsstore/store1.png",
-        "src/assets/Projects/rvsstore/store2.png",
-        "src/assets/Projects/rvsstore/store3.png",
-        "src/assets/Projects/rvsstore/storeportada.png",
+        otherimagervsstore1,
+        otherimagervsstore2,
+        otherimagervsstore3,
+        imageproject3,
       ],
       tags: ["React", "Firebase", "Tailwind"],
       githubUrl: "https://github.com/RVSolutionsplus507/RVStore",
@@ -76,8 +97,8 @@ function ProjectPage() {
       id: 4,
       title: t("title4"),
       description: t("description4"),
-      image: "src/assets/Projects/mauad/mauadportada.png",
-      images: ["src/assets/Projects/soon.webp"],
+      image: imageproject4,
+      images: [imageproject4, imageproject5],
       tags: ["React", "Tailwind", "Shadcn UI"],
       githubUrl: "https://github.com/RVSolutionsplus507/mauadweb",
       liveUrl: "https://mauadweb.vercel.app/",
@@ -86,8 +107,8 @@ function ProjectPage() {
       id: 5,
       title: t("title5"),
       description: t("description5"),
-      image: "src/assets/Projects/soon.webp",
-      images: ["src/assets/Projects/soon.webp"],
+      image: imageproject5,
+      images: [imageproject5],
       tags: ["React", "Typescript", "Express", "MySQL"],
       githubUrl: "https://github.com/RVSolutionsplus507",
       liveUrl: "https://github.com/RVSolutionsplus507",
@@ -97,8 +118,8 @@ function ProjectPage() {
       id: 6,
       title: t("title6"),
       description: t("description6"),
-      image: "src/assets/Projects/soon.webp",
-      images: ["src/assets/Projects/soon.webp"],
+      image: imageproject5,
+      images: [imageproject5],
       tags: ["React Native", "Firebase", "Redux"],
       githubUrl: "https://github.com/RVSolutionsplus507",
       liveUrl: "https://github.com/RVSolutionsplus507",

@@ -14,24 +14,28 @@ import BrandsFront from "@/components/brandsfront";
 import BrandsBack from "@/components/brandsback";
 import { useTranslation } from "react-i18next";
 
+import imagereview1 from "@/assets/ReviewsImages/mauad.webp";
+import imagereview2 from "@/assets/ReviewsImages/jd.webp";
+import imagereview3 from "@/assets/ReviewsImages/juanjo.webp";
+
 function AboutMe() {
   const [t] = useTranslation("aboutme");
   const reviews = [
     {
-      image: "/src/assets/ReviewsImages/mauad.webp",
+      image: imagereview1,
       name: "Mauad & Mauad",
       content: t("contentreview1"),
       rating: 5,
     },
     {
-      image: "/src/assets/ReviewsImages/jd.webp",
+      image: imagereview2,
       name: "Jacinta Delgado",
       content: t("contentreview2"),
         
       rating: 5,
     },
     {
-      image: "/src/assets/ReviewsImages/juanjo.webp",
+      image: imagereview3,
       name: "Juan Boschetti",
       content: t("contentreview3"),
       rating: 5,
