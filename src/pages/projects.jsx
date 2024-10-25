@@ -34,6 +34,12 @@ import otherimagervsstore1 from "@/assets/Projects/rvsstore/store1.webp";
 import otherimagervsstore2 from "@/assets/Projects/rvsstore/store2.webp";
 import otherimagervsstore3 from "@/assets/Projects/rvsstore/store3.webp";
 
+import conference1 from "@/assets/Projects/semahconference/Conference1.webp";
+import conference2 from "@/assets/Projects/semahconference/Conference1.webp";
+import conference3 from "@/assets/Projects/semahconference/Conference1.webp";
+import conference4 from "@/assets/Projects/semahconference/Conference1.webp";
+import conference5 from "@/assets/Projects/semahconference/Conference1.webp";
+
 
 
 function ProjectPage() {
@@ -66,6 +72,22 @@ function ProjectPage() {
     },
     {
       id: 2,
+      title: t("title6"),
+      description: t("description6"),
+      image: conference2,
+      images: [
+        conference1,
+        conference2,
+        conference3,
+        conference4,
+        conference5,
+      ],
+      tags: ["React", "Tailwind", "Supabase"],
+      githubUrl: "https://github.com/RVSolutionsplus507/conference-booking-system",
+      liveUrl: "https://github.com/RVSolutionsplus507/conference-booking-system",
+    },
+    {
+      id: 3,
       title: t("title2"),
       description: t("description2"),
       image: imageproject2,
@@ -79,7 +101,7 @@ function ProjectPage() {
       liveUrl: "https://solicitud.almacenajes.net/",
     },
     {
-      id: 3,
+      id: 4,
       title: t("title3"),
       description: t("description3"),
       image: imageproject3,
@@ -94,7 +116,7 @@ function ProjectPage() {
       liveUrl: "https://rvstore.vercel.app/",
     },
     {
-      id: 4,
+      id: 5,
       title: t("title4"),
       description: t("description4"),
       image: imageproject4,
@@ -104,7 +126,7 @@ function ProjectPage() {
       liveUrl: "https://mauadweb.vercel.app/",
     },
     {
-      id: 5,
+      id: 6,
       title: t("title5"),
       description: t("description5"),
       image: imageproject5,
@@ -114,16 +136,7 @@ function ProjectPage() {
       liveUrl: "https://github.com/RVSolutionsplus507",
     },
 
-    {
-      id: 6,
-      title: t("title6"),
-      description: t("description6"),
-      image: imageproject5,
-      images: [imageproject5],
-      tags: ["React Native", "Firebase", "Redux"],
-      githubUrl: "https://github.com/RVSolutionsplus507",
-      liveUrl: "https://github.com/RVSolutionsplus507",
-    },
+  
   ];
 
   const filteredProjects = allProjects.filter(
