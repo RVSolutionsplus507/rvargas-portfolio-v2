@@ -35,10 +35,10 @@ import otherimagervsstore2 from "@/assets/Projects/rvsstore/store2.webp";
 import otherimagervsstore3 from "@/assets/Projects/rvsstore/store3.webp";
 
 import conference1 from "@/assets/Projects/semahconference/Conference1.webp";
-import conference2 from "@/assets/Projects/semahconference/Conference1.webp";
-import conference3 from "@/assets/Projects/semahconference/Conference1.webp";
-import conference4 from "@/assets/Projects/semahconference/Conference1.webp";
-import conference5 from "@/assets/Projects/semahconference/Conference1.webp";
+import conference2 from "@/assets/Projects/semahconference/Conference2.webp";
+import conference3 from "@/assets/Projects/semahconference/Conference3.webp";
+import conference4 from "@/assets/Projects/semahconference/Conference4.webp";
+import conference5 from "@/assets/Projects/semahconference/Conference5.webp";
 
 
 
