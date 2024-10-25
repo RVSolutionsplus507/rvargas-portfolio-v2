@@ -1,15 +1,13 @@
 import Sidebar from "./components/Sidebar";
-import Whatsapp from "@/components/whatsapp";
 import { Outlet } from "react-router-dom";
 import { Meteors } from "@/components/meteors";
 
 function App() {
   return (
     <div className="relative h-screen bg-slate-200 dark:bg-zinc-950 lg:overflow-hidden">
-      <div className="absolute bottom-0 left-[-20%] right-0 top-[-15%] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(24,155,73,.80),rgba(255,255,255,0))]"></div>
-      <div className="absolute right-[-20%] bottom-[-15%] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(24,155,73,.80),rgba(255,255,255,0))]"></div>
+      <div className="absolute sm:left-12 left-0 top-[-15%] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(24,155,73,.80),rgba(255,255,255,0))]"></div>
       <div className="sm:container sm:mx-auto relative flex items-center justify-center h-full py-6">
-        <div className="max-w-6xl w-screen flex flex-col md:flex-row gap-6 h-full">
+        <div className="w-screen flex flex-col md:flex-row gap-6 h-full">
           <div className="w-full md:w-64 bg-white dark:bg-zinc-800 p-6 rounded-3xl md:rounded-l-3xl md:rounded-r-none shadow-xl h-full border-blur">
             <Sidebar />
           </div>
@@ -19,9 +17,9 @@ function App() {
               <Outlet />
               <Meteors />
             </div>
+            <div className="hidden sm:block absolute right-[-30%] bottom-[-15%] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(24,155,73,.80),rgba(255,255,255,0))]"></div>
           </div>
         </div>
-        <Whatsapp />
       </div>
     </div>
   );

@@ -84,7 +84,7 @@ function AboutMe() {
                   <FaPlane className="mr-1" /> {t("badge2")}
                 </Badge>
                 <Badge variant="default">
-                  <FaSmile className="mr-1" /> {t("badge2")}
+                  <FaSmile className="mr-1" /> {t("badge3")}
                 </Badge>
               </div>
             </CardContent>
