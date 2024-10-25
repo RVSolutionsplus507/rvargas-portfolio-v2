@@ -18,14 +18,14 @@ function ImageModal({ images, isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[800px] p-0">
+      <DialogContent className="sm:max-w-[1100px] p-0">
         <div className="relative">
           <AnimatePresence mode="wait">
             <motion.img
               key={currentIndex}
               src={images[currentIndex]}
               alt={`Project image ${currentIndex + 1}`}
-              className="w-full h-[500px] object-fill"
+              className="w-full sm:h-[500px] h-full object-fill"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
