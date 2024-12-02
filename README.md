@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/RVSolutionsplus507/rvargas-portfolio-v2/main/src/assets/logo.png" alt="RV Solutions Plus Logo" width="200"/>
+  <img src="https://github.com/RVSolutionsplus507/rvargas-portfolio-v2/blob/main/src/assets/logorvs.webp" alt="RV Solutions Plus Logo" width="200"/>
 
   # Roberto Vargas Portfolio
 
