@@ -18,13 +18,15 @@ import { useTranslation } from "react-i18next";
 import imageproject1 from "@/assets/Projects/electricsbm/electricportada.webp";
 import imageproject2 from "@/assets/Projects/solicitud/solicitudportada.webp";
 import imageproject3 from "@/assets/Projects/rvsstore/storeportada.webp";
-import imageproject4 from "@/assets/Projects/mauad/mauadportada.webp";
+import imageproject4 from "@/assets/Projects/mauad/mauadweb/mauadportada.webp";
 import imageproject5 from "@/assets/Projects/soon.webp";
+import imageproject6 from "@/assets/Projects/mauad/arbolitov2/portadaarbolito.webp";
 
 import otherimageelectric1 from "@/assets/Projects/electricsbm/electric1.webp";
 import otherimageelectric2 from "@/assets/Projects/electricsbm/electric2.webp";
 import otherimageelectric3 from "@/assets/Projects/electricsbm/electric3.webp";
 import otherimageelectric4 from "@/assets/Projects/electricsbm/electric4.webp";
+import otherimageelectric5 from "@/assets/Projects/electricsbm/electric5.webp";
 
 import otherimagesolicitud1 from "@/assets/Projects/solicitud/solicitud1.webp";
 import otherimagesolicitud2 from "@/assets/Projects/solicitud/solicitud2.webp";
@@ -39,6 +41,12 @@ import conference2 from "@/assets/Projects/semahconference/Conference2.webp";
 import conference3 from "@/assets/Projects/semahconference/Conference3.webp";
 import conference4 from "@/assets/Projects/semahconference/Conference4.webp";
 import conference5 from "@/assets/Projects/semahconference/Conference5.webp";
+
+import arbolito1 from "@/assets/Projects/mauad/arbolitov2/arbolito1.webp";
+import arbolito2 from "@/assets/Projects/mauad/arbolitov2/arbolito2.webp";
+import arbolito3 from "@/assets/Projects/mauad/arbolitov2/arbolito3.webp";
+import arbolito4 from "@/assets/Projects/mauad/arbolitov2/arbolito4.webp";
+
 
 
 
@@ -65,6 +73,7 @@ function ProjectPage() {
         otherimageelectric2,
         otherimageelectric3,
         otherimageelectric4,
+        otherimageelectric5,
       ],
       tags: ["React", "Tailwind", "Express", "MySQL"],
       githubUrl: "https://github.com/RVSolutionsplus507",
@@ -72,20 +81,20 @@ function ProjectPage() {
     },
     {
       id: 2,
-      title: t("title6"),
-      description: t("description6"),
-      image: conference2,
+      title: t("title7"),
+      description: t("description7"),
+      image: imageproject6,
       images: [
-        conference1,
-        conference2,
-        conference3,
-        conference4,
-        conference5,
+        arbolito1,
+        arbolito2,
+        arbolito3,
+        arbolito4,
       ],
-      tags: ["React", "Tailwind", "Supabase"],
-      githubUrl: "https://github.com/RVSolutionsplus507/conference-booking-system",
-      liveUrl: "https://github.com/RVSolutionsplus507/conference-booking-system",
+      tags: ["React", "Typescript", "Express", "MySQL"],
+      githubUrl: "https://github.com/RVSolutionsplus507",
+      liveUrl: "https://github.com/RVSolutionsplus507",
     },
+    
     {
       id: 3,
       title: t("title2"),
@@ -102,6 +111,22 @@ function ProjectPage() {
     },
     {
       id: 4,
+      title: t("title6"),
+      description: t("description6"),
+      image: conference2,
+      images: [
+        conference1,
+        conference2,
+        conference3,
+        conference4,
+        conference5,
+      ],
+      tags: ["React", "Tailwind", "Supabase"],
+      githubUrl: "https://github.com/RVSolutionsplus507/conference-booking-system",
+      liveUrl: "https://github.com/RVSolutionsplus507/conference-booking-system",
+    },
+    {
+      id: 5,
       title: t("title3"),
       description: t("description3"),
       image: imageproject3,
@@ -116,7 +141,7 @@ function ProjectPage() {
       liveUrl: "https://rvstore.vercel.app/",
     },
     {
-      id: 5,
+      id: 6,
       title: t("title4"),
       description: t("description4"),
       image: imageproject4,
@@ -126,7 +151,7 @@ function ProjectPage() {
       liveUrl: "https://mauadweb.vercel.app/",
     },
     {
-      id: 6,
+      id: 7,
       title: t("title5"),
       description: t("description5"),
       image: imageproject5,
@@ -135,6 +160,7 @@ function ProjectPage() {
       githubUrl: "https://github.com/RVSolutionsplus507",
       liveUrl: "https://github.com/RVSolutionsplus507",
     },
+   
 
   
   ];
@@ -207,7 +233,7 @@ function ProjectPage() {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-48 object-fill rounded-t-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+                  className="w-full h-60 object-fill rounded-t-lg cursor-pointer transition-transform duration-300 hover:scale-105"
                   onClick={() => openImageModal(project)}
                 />
               </CardHeader>
