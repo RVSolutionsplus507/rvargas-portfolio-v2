@@ -47,6 +47,12 @@ import arbolito2 from "@/assets/Projects/mauad/arbolitov2/arbolito2.webp";
 import arbolito3 from "@/assets/Projects/mauad/arbolitov2/arbolito3.webp";
 import arbolito4 from "@/assets/Projects/mauad/arbolitov2/arbolito4.webp";
 
+import landingamd1 from "@/assets/Projects/landingamd/landingamd1.webp";
+import landingamd2 from "@/assets/Projects/landingamd/landingamd2.webp";
+import landingamd3 from "@/assets/Projects/landingamd/landingamd3.webp";
+import landingamd4 from "@/assets/Projects/landingamd/landingamd4.webp";
+import landingamd5 from "@/assets/Projects/landingamd/landingamd5.webp";
+
 
 
 
@@ -94,20 +100,22 @@ function ProjectPage() {
       githubUrl: "https://github.com/RVSolutionsplus507",
       liveUrl: "https://github.com/RVSolutionsplus507",
     },
-    
+
     {
       id: 3,
-      title: t("title2"),
-      description: t("description2"),
-      image: imageproject2,
+      title: t("title8"),
+      description: t("description8"),
+      image: landingamd1,
       images: [
-        otherimagesolicitud1,
-        otherimagesolicitud2,
-        imageproject2,
+        landingamd1,
+        landingamd2,
+        landingamd3,
+        landingamd4,
+        landingamd5,
       ],
-      tags: ["React", "React Hook Form", "Firebase"],
-      githubUrl: "https://github.com/RVSolutionsplus507/solicitud-almacenajes",
-      liveUrl: "https://solicitud.almacenajes.net/",
+      tags: ["Astro", "Tailwind", "Typescript"],
+      githubUrl: "https://github.com/RVSolutionsplus507/landingamd",
+      liveUrl: "https://almacenajes-minidepositos.com/",
     },
     {
       id: 4,
@@ -125,8 +133,24 @@ function ProjectPage() {
       githubUrl: "https://github.com/RVSolutionsplus507/conference-booking-system",
       liveUrl: "https://github.com/RVSolutionsplus507/conference-booking-system",
     },
+    
     {
       id: 5,
+      title: t("title2"),
+      description: t("description2"),
+      image: imageproject2,
+      images: [
+        otherimagesolicitud1,
+        otherimagesolicitud2,
+        imageproject2,
+      ],
+      tags: ["React", "React Hook Form", "Firebase"],
+      githubUrl: "https://github.com/RVSolutionsplus507/solicitud-almacenajes",
+      liveUrl: "https://solicitud.almacenajes.net/",
+    },
+    
+    {
+      id: 6,
       title: t("title3"),
       description: t("description3"),
       image: imageproject3,
@@ -141,7 +165,7 @@ function ProjectPage() {
       liveUrl: "https://rvstore.vercel.app/",
     },
     {
-      id: 6,
+      id: 7,
       title: t("title4"),
       description: t("description4"),
       image: imageproject4,
@@ -151,7 +175,7 @@ function ProjectPage() {
       liveUrl: "https://mauadweb.vercel.app/",
     },
     {
-      id: 7,
+      id: 8,
       title: t("title5"),
       description: t("description5"),
       image: imageproject5,
