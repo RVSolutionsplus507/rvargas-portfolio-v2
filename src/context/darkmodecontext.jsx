@@ -3,6 +3,12 @@ import PropTypes from "prop-types";
 
 export const DarkModeContext = createContext();
 
+const setSecureCookie = (name, value, days = 30) => {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value}; expires=${date.toUTCString()}; SameSite=Strict; Secure; Path=/`;
+  };
+
 export const DarkModeProvider = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         // Check localStorage first
@@ -17,6 +23,7 @@ export const DarkModeProvider = ({ children }) => {
     useEffect(() => {
         // Update localStorage when isDarkMode changes
         localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+        setSecureCookie('darkMode', JSON.stringify(isDarkMode));
         
         // Apply dark mode class to html element
         if (isDarkMode) {

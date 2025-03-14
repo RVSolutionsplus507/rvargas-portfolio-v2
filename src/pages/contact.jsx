@@ -9,17 +9,25 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTranslation } from 'react-i18next'
 import { sendCustomEmail } from "@/components/email";
+import { setupCSRF } from "@/lib/utils";
 
 export default function ContactPage() {
   const { t } = useTranslation("contact")
   const { register, reset, handleSubmit, formState: { errors } } = useForm()
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [csrfToken, setCsrfToken] = useState("");
 //   const [details, setDetails] = useState({
 //     name: "",
 //     email: "",
 //     phone: "",
 //     message: ""
 // });
+useEffect(() => {
+  // Generate and set CSRF token when component mounts
+  const token = setupCSRF();
+  setCsrfToken(token);
+}, []);
+
 
 useEffect(() => {
   let intervalId;
@@ -36,7 +44,11 @@ useEffect(() => {
 }, [isSubmitted]);
 
   const onSubmit = (data) => {
-    sendCustomEmail(data);
+    const dataWithToken = {
+      ...data,
+      csrfToken
+    };
+    sendCustomEmail(dataWithToken);
     setIsSubmitted(true)
     reset()
     confetti({
