@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { DarkModeContext } from "@/context/darkmodecontext";
 import "@/css/darkmode.css";
 
-export const Darkmode = ({ className }) => {
+export const Darkmode = ({ className = "" }) => {
     const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
     return (

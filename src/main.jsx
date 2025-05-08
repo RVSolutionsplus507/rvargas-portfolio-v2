@@ -14,7 +14,10 @@ import ContactPage from "@/pages/contact";
 import AboutMe from "@/pages/aboutme";
 import Resume from "@/pages/resume";
 
-const router = createBrowserRouter([
+// Configuración con flags para v7 para eliminar warnings
+const router = createBrowserRouter(
+  [
+
   {
     path: "/",
     element: <App />,
@@ -42,7 +45,13 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+],
+{
+  future: {
+    v7_startTransition: true,
+    v7_relativeSplatPath: true
+  }
+});
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

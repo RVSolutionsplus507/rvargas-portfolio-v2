@@ -250,7 +250,7 @@ function ProjectPage() {
                 <img
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
-                  className="w-full h-60 object-fill rounded-t-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+                  className="w-full h-60 object-cover rounded-t-lg cursor-pointer transition-transform duration-300 hover:scale-105"
                   onClick={() => openImageModal(project)}
                 />
               </CardHeader>

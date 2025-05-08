@@ -35,9 +35,13 @@ const Sidebar = () => {
   return (
     <>
       <div className="flex flex-col h-full">
-        <div className="flex justify-around mb-2">
-          <Darkmode className="text-[7%]" />
-          <LanguageButton />
+        <div className="flex justify-between items-center mb-4 px-2 gap-2">
+          <div className="flex items-center">
+            <Darkmode />
+          </div>
+          <div className="flex items-center">
+            <LanguageButton />
+          </div>
         </div>
         <div className="flex flex-col items-center space-y-4 mb-8">
           <Avatar className="w-32 h-32">

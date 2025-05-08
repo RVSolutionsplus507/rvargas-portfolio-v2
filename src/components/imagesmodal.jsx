@@ -25,7 +25,7 @@ function ImageModal({ images, isOpen, onClose }) {
               key={currentIndex}
               src={images[currentIndex]}
               alt={`Project image ${currentIndex + 1}`}
-              className="w-full sm:h-[500px] h-full object-fill"
+              className="w-full sm:h-[500px] h-full object-contain"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
