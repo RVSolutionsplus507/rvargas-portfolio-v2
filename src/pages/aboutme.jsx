@@ -131,22 +131,38 @@ function AboutMe() {
               <CardDescription>{t("timelinedescription")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {timeline.map((item, index) => (
-                  <div key={index} className="flex items-center space-x-4">
-                    <div className="flex-shrink-0">
-                      <Badge variant="outline" className="w-16 justify-center">
-                        {item.year}
-                      </Badge>
-                    </div>
-                    <div className="flex-grow">
-                      <div className="h-0.5 bg-muted-foreground/20 relative">
-                        <div className="absolute left-0 -top-1.5 w-3 h-3 rounded-full bg-primary" />
+            <div className="space-y-4">
+                {timeline.map((item, index) => {
+                  // Asignar posiciones específicas para cada año
+                  let position;
+                  switch(item.year) {
+                    case 2013: position = 0; break;
+                    case 2015: position = 33; break;
+                    case 2023: position = 66; break;
+                    case 2024: position = 100; break;
+                    default: position = Math.round((index / (timeline.length - 1)) * 100);
+                  }
+                  
+                  return (
+                    <div key={index} className="flex items-start space-x-2 mb-6">
+                      <div className="flex-shrink-0 w-[60px]">
+                        <Badge variant="outline" className="w-16 justify-center">
+                          {item.year}
+                        </Badge>
                       </div>
+                      <div className="flex-grow h-6 relative">
+                        {/* Línea completa */}
+                        <div className="absolute top-3 left-2 right-0 h-0.5 bg-muted-foreground/20"></div>
+                        {/* Punto verde */}
+                        <div 
+                          className="absolute top-1.5 w-3 h-3 rounded-full bg-primary" 
+                          style={{ left: `${position}%` }}
+                        />
+                      </div>
+                      <div className="flex-shrink-0 w-1/2 text-left pl-5">{item.event}</div>
                     </div>
-                    <div className="flex-grow">{item.event}</div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
