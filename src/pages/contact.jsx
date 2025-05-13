@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTranslation } from 'react-i18next'
-import { sendCustomEmail } from "@/components/email";
+import { sendCustomEmail } from "@/services/emailService";
 import { setupCSRF } from "@/lib/utils";
 
 export default function ContactPage() {
@@ -119,7 +119,7 @@ useEffect(() => {
                       {...register("message", { required: t("messagerequired")})}
                       placeholder={t("message")}
                       rows={4}
-                     
+                    
                     />
                     {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
                   </div>

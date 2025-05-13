@@ -1,6 +1,7 @@
 import Sidebar from "./components/Sidebar";
 import { Outlet } from "react-router-dom";
 import { Meteors } from "@/components/meteors";
+import VirtualAssistant from "./components/VirtualAssistant";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
               <div className="hidden md:block">
                 <Meteors number={10} />
               </div>
+              
+              {/* Asistente Virtual */}
+              <VirtualAssistant />
             </div>
           </div>
         </div>
