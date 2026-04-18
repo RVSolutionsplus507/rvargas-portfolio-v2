@@ -6,6 +6,9 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import confetti from 'canvas-confetti';
 
+const getTimestamp = () =>
+  new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
+
 const useVirtualAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentPhrase, setCurrentPhrase] = useState(0);
@@ -23,10 +26,10 @@ const useVirtualAssistant = () => {
   const [csrfToken, setCsrfToken] = useState("");
   
   const developmentPhrases = [
-    "Hola, soy el asistente virtual de Roberto. ¿En qué puedo ayudarte?",
-    "Puedo ayudarte a resolver tus necesidades de desarrollo web y tecnología",
-    "Roberto ofrece soluciones a medida para tu empresa o proyecto personal",
-    "Consulta por servicios de desarrollo web, consultoría y más"
+    "¡Hola! Soy Ambar, tu asistente de RVSolutions Plus. ¿En qué puedo ayudarte?",
+    "Puedo orientarte sobre los servicios de desarrollo web y consultoría de Roberto",
+    "RVSolutions Plus crea soluciones tecnológicas a medida para tu empresa",
+    "¿Tienes un proyecto en mente? Pregúntame, estoy aquí para ayudarte"
   ];
   
 
@@ -94,7 +97,7 @@ const useVirtualAssistant = () => {
     if (!userQuestion.trim()) return;
     
     // Agregar pregunta del usuario al historial
-    setChatHistory(prev => [...prev, { type: "user", content: userQuestion.trim() }]);
+    setChatHistory(prev => [...prev, { type: "user", content: userQuestion.trim(), time: getTimestamp() }]);
     
     const question = userQuestion.trim();
     setUserQuestion("");
@@ -103,15 +106,15 @@ const useVirtualAssistant = () => {
     try {
       // Comprobar si es una solicitud de agenda (usando await ya que es una función async)
       const isScheduling = await isSchedulingQuery(question);
-      console.log("¿Es solicitud de agenda?", isScheduling, "para pregunta:", question);
     
       if (isScheduling) {
       // Mostrar formulario de consultoría
       setChatHistory(prev => [
-        ...prev, 
-        { 
-          type: "assistant", 
-          content: "¡Claro! Estaré encantado de ayudarte a programar una consultoría. Por favor, completa el siguiente formulario para que pueda agendarte en mi calendario." 
+        ...prev,
+        {
+          type: "assistant",
+          content: "¡Claro! Estaré encantado de ayudarte a programar una consultoría. Por favor, completa el siguiente formulario para que pueda agendarte en mi calendario.",
+          time: getTimestamp()
         }
       ]);
       
@@ -121,7 +124,7 @@ const useVirtualAssistant = () => {
         const response = await generateResponse(question, chatHistory);
         
         // Agregar respuesta al historial
-        setChatHistory(prev => [...prev, { type: "assistant", content: response }]);
+        setChatHistory(prev => [...prev, { type: "assistant", content: response, time: getTimestamp() }]);
       }
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
@@ -129,7 +132,8 @@ const useVirtualAssistant = () => {
         ...prev, 
         { 
           type: "assistant", 
-          content: "Lo siento, ha ocurrido un error al procesar tu pregunta. Por favor, intenta de nuevo más tarde." 
+          content: "Lo siento, ha ocurrido un error al procesar tu pregunta. Por favor, intenta de nuevo más tarde.",
+          time: getTimestamp()
         }
       ]);
     }
@@ -179,8 +183,7 @@ const useVirtualAssistant = () => {
     
     // Enviar el email (ahora devuelve una promesa)
     sendCustomEmail(dataWithToken)
-      .then(response => {
-        console.log("Email enviado correctamente:", response);
+      .then(() => {
         
         // Mostrar efecto de confetti al enviar el formulario correctamente
         confetti({
@@ -194,7 +197,8 @@ const useVirtualAssistant = () => {
           ...prev, 
           { 
             type: "assistant", 
-            content: `¡Gracias ${userName}! Tu solicitud de consultoría para el ${formattedDate} a las ${selectedTime} ha sido enviada. Pronto te contactaré por correo electrónico para confirmar la cita.` 
+            content: `¡Gracias ${userName}! Tu solicitud de consultoría para el ${formattedDate} a las ${selectedTime} ha sido enviada. Pronto te contactaré por correo electrónico para confirmar la cita.`,
+            time: getTimestamp()
           }
         ]);
         
@@ -207,12 +211,13 @@ const useVirtualAssistant = () => {
         setSelectedTime("");
       })
       .catch(error => {
-        console.error("Error al enviar solicitud de consultoría:", error);
+        console.error("Error al enviar solicitud:", error);
         setChatHistory(prev => [
           ...prev, 
           { 
             type: "assistant", 
-            content: "Lo siento, hubo un error al enviar tu solicitud. Por favor, intenta de nuevo o contacta directamente por correo: rvargas@rv-solutions.net" 
+            content: "Lo siento, hubo un error al enviar tu solicitud. Por favor, intenta de nuevo o contacta directamente por correo: rvargas@rv-solutions.net",
+            time: getTimestamp()
           }
         ]);
       })

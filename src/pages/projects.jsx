@@ -245,7 +245,7 @@ function ProjectPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <Card className="h-full flex flex-col">
+            <Card className="h-full flex flex-col hover:shadow-xl dark:hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1">
               <CardHeader>
                 <img
                   src={project.image || "/placeholder.svg"}
@@ -255,8 +255,8 @@ function ProjectPage() {
                 />
               </CardHeader>
               <CardContent className="flex-grow">
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription className="mt-2">{project.description}</CardDescription>
+                <CardTitle className="text-foreground">{project.title}</CardTitle>
+                <CardDescription className="mt-2 dark:text-slate-300">{project.description}</CardDescription>
                 <div className="flex flex-wrap gap-2 mt-4">
                   {project.tags.map((tag, tagIndex) => (
                     <Badge key={tagIndex} variant="secondary">
@@ -284,7 +284,7 @@ function ProjectPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-center text-gray-600 mt-8"
+          className="text-center text-gray-600 dark:text-gray-300 mt-8"
         >
           {t("noprojects")}
         </motion.p>

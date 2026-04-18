@@ -1,6 +1,19 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Obtener la API key desde las variables de entorno
+const isDev = import.meta.env.DEV;
+const logger = {
+  log: (...args) => isDev && console.log(...args),
+  error: (...args) => isDev && console.error(...args),
+  warn: (...args) => isDev && console.warn(...args),
+};
+
+function sanitizeUserInput(input) {
+  return String(input)
+    .slice(0, 500)
+    .replace(/[<>]/g, "")
+    .trim();
+}
+
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 // Flag para determinar si la API está disponible
@@ -11,50 +24,53 @@ let ai;
 if (isApiAvailable) {
   try {
     ai = new GoogleGenAI({ apiKey: API_KEY });
-    console.log('Gemini API inicializada correctamente');
+    logger.log('Gemini API inicializada correctamente');
   } catch (error) {
-    console.error('Error al inicializar Gemini API:', error);
+    logger.error('Error al inicializar Gemini API:', error);
   }
 } else {
-  console.warn('Gemini API no disponible: usando respuestas predefinidas');
+  logger.warn('Gemini API no disponible: usando respuestas predefinidas');
 }
 
-// Contexto del portafolio para darle al modelo información relevante
 const PORTFOLIO_CONTEXT = `
-Eres el asistente virtual de Roberto J. Vargas, un desarrollador web Full Stack.
+Eres el asistente virtual de RVSolutions Plus, la empresa de tecnología de Roberto J. Vargas.
 
-Información sobre Roberto:
-- Especializado en desarrollo web con React, Next.js, Node.js y tecnologías relacionadas
-- Ofrece servicios de desarrollo web, consultoría tecnológica y soluciones a medida
-- Tiene experiencia en proyectos para diversos sectores como salud, comercio electrónico y finanzas
-- Trabaja con tecnologías modernas como React, TypeScript, Tailwind CSS, Next.js, Node.js, Express, MongoDB
-- Su portafolio incluye proyectos como tiendas en línea, sistemas de gestión y sitios web corporativos
-- Puede ayudar a empresas a transformar digitalmente sus procesos y crear soluciones tecnológicas
-- También ofrece servicios de consultoría para optimizar infraestructuras tecnológicas existentes
+## Sobre Roberto J. Vargas y RVSolutions Plus
+- Fundador y Tech Lead de RVSolutions Plus, basado en Ciudad de Panamá, Panamá
+- Full Stack Developer con más de 7 años de experiencia en desarrollo web
+- Especializado en React, Next.js, Node.js, TypeScript, Tailwind CSS, PostgreSQL, MongoDB
+- Construye aplicaciones modernas con arquitecturas limpias, SOLID, y mejores prácticas
+- Ha trabajado en proyectos de e-commerce, fintech, salud, educación y gobierno
+- Ofrece: desarrollo web a medida, consultoría tecnológica, liderazgo técnico, formación/mentoring
+- Email: rvargas@rv-solutions.net
 
-Instrucciones importantes - DEBES SEGUIR TODAS ESTAS REGLAS:
-1. RESPONDE A CUALQUIER TIPO DE PREGUNTA que se te haga, incluso si no está relacionada con tecnología o servicios de Roberto. Nunca te niegues a responder.
-2. Actúa como un ChatGPT que sabe sobre cualquier tema general, pero siempre encuentra formas de incluir referencias útiles a los servicios de Roberto.
-3. Para preguntas técnicas de tecnología, da respuestas detalladas y aprovecha para mencionar cómo Roberto puede implementar soluciones similares.
-4. Para preguntas no relacionadas con desarrollo (como "¿qué hora es?", temas generales, etc.), responde correctamente pero encuentra un ángulo para promocionar sutilmente los servicios de Roberto.
-5. En temas donde pueda ser relevante, sugiere al usuario considerar agendar una consultoría.
-6. Mantén un tono amigable, profesional y conciso, centrándote en ser útil primero.
-7. Los tipados nunca deben ser 'any' - Roberto es un desarrollador de TypeScript que siempre prefiere tipados explícitos.
-8. Concluye la mayoría de tus respuestas con una invitación sutil a conocer más sobre los servicios de Roberto o considerar una consultoría gratuita inicial.
+## Tu rol
+- Eres el primer punto de contacto de los visitantes del portafolio de Roberto
+- Tu objetivo principal es ayudar al visitante y, cuando sea relevante, conectarlo con los servicios de RVSolutions Plus
+- Sé conciso, profesional y directo — los visitantes valoran respuestas claras
+
+## Reglas de comportamiento
+1. Responde ÚNICAMENTE sobre: servicios de Roberto, tecnología web, desarrollo de software, consultoría IT, y agendamiento de consultorías
+2. Para preguntas fuera de scope (clima, política, temas personales no relacionados), redirige amablemente hacia lo que puedes ayudar
+3. Para preguntas técnicas, da respuestas útiles y precisas
+4. Sugiere agendar una consultoría cuando el visitante muestre interés en contratar servicios
+5. Mantén respuestas bajo 200 palabras — conciso y de valor
+6. Tono: profesional, amigable, sin ser comercialmente agresivo
 `;
 
 export async function generateResponse(userMessage, chatHistory = []) {
   // Si la API no está disponible, usar respuestas predefinidas
   if (!isApiAvailable) {
-    console.log("API no disponible, usando fallback");
+    logger.log("API no disponible, usando fallback");
     return getFallbackResponse(userMessage);
   }
-  
+
+  const sanitizedMessage = sanitizeUserInput(userMessage);
+
   try {
-    console.log("Enviando consulta a Gemini:", userMessage);
+    logger.log("Enviando consulta a Gemini");
     
-    // Usar el modelo con cuota gratuita
-    const modelName = "gemini-2.5-pro-exp-03-25";
+    const modelName = "gemini-2.0-flash";
     
     // Construir un prompt completo que incluya el contexto del portfolio y la pregunta
     // Este enfoque es más directo y asegura que el modelo considere el contexto
@@ -63,69 +79,42 @@ ${PORTFOLIO_CONTEXT}
 
 ===
 HISTORIAL DE CONVERSACIÓN:
-${chatHistory.slice(-3).map(msg => 
+${chatHistory.slice(-3).map(msg =>
   `${msg.type === "user" ? "Usuario" : "Asistente"}: ${msg.content}`
 ).join('\n')}
 
 ===
-NUEVA PREGUNTA DEL USUARIO: ${userMessage}
+PREGUNTA DEL USUARIO: ${sanitizedMessage}
 
 ===
-RESPUESTA DEL ASISTENTE (asegúrate de seguir TODAS las instrucciones anteriores, especialmente mencionar los servicios de Roberto y sugerir agendar una consultoría):
+RESPUESTA:
 `;
     
-    console.log(`Usando modelo: ${modelName}`);
-    console.log(`Prompt completo generado (primeros 100 caracteres): ${prompt.substring(0, 100)}...`);
+    logger.log(`Usando modelo: ${modelName}`);
     
     // Usar generateContent en lugar de chat para mantener el control total sobre el prompt
+    const historyText = chatHistory.slice(-4).map(msg =>
+      `${msg.type === "user" ? "Usuario" : "Ambar"}: ${msg.content}`
+    ).join('\n');
+
     const response = await ai.models.generateContent({
       model: modelName,
-      contents: [
-        {
-          parts: [{ text: prompt }]
-        }
-      ],
-      generationConfig: {
+      contents: sanitizedMessage,
+      config: {
+        systemInstruction: `${PORTFOLIO_CONTEXT}\n\nHistorial reciente:\n${historyText}`,
         temperature: 0.7,
-        maxOutputTokens: 800
-      }
+        maxOutputTokens: 800,
+      },
     });
-    
-    // Extraer la respuesta del modelo (adaptado para la estructura de generateContent)
-    console.log("Estructura de respuesta:", JSON.stringify(response).substring(0, 100) + "...");
-    
-    // Verificar estructura de candidates (formato estándar para generateContent)
-    if (response && response.candidates && response.candidates[0]) {
-      const candidate = response.candidates[0];
-      if (candidate.content && candidate.content.parts && candidate.content.parts[0]) {
-        const responseText = candidate.content.parts[0].text;
-        
-        // Verificar que la respuesta no esté vacía
-        if (responseText && responseText.trim()) {
-          console.log("Respuesta extraída correctamente:", responseText.substring(0, 50) + "...");
-          return responseText.trim();
-        }
-      }
-    }
-    
-    // Intentar otros formatos conocidos (redundancia de seguridad)
-    try {
-      if (response && typeof response.text === 'function') {
-        const responseText = response.text();
-        if (responseText && responseText.trim()) {
-          return responseText.trim();
-        }
-      }
-    } catch (error) {
-      console.error("Error al intentar usar response.text():", error);
-    }
-    
-    // Si no pudimos extraer la respuesta de ninguna manera
-    console.error("No se pudo extraer el texto de la respuesta");
-    return getFallbackResponse(userMessage);
+
+    const text = response.text;
+    if (text && text.trim()) return text.trim();
+
+    logger.error("Respuesta vacía de Gemini");
+    return getFallbackResponse(sanitizedMessage);
   } catch (error) {
-    console.error("Error al generar respuesta con Gemini:", error);
-    return getFallbackResponse(userMessage);
+    logger.error("Error al generar respuesta con Gemini:", error);
+    return getFallbackResponse(sanitizedMessage);
   }
 }
 
@@ -170,8 +159,8 @@ export async function isSchedulingQuery(message) {
       
       // Crear una sesión de chat específica para esta consulta
       const chat = ai.chats.create({
-        model: "gemini-2.5-pro-exp-03-25", // Mismo modelo que usamos en generateResponse
-        history: [instructionMessage] // Pasar las instrucciones como un mensaje en el historial
+        model: "gemini-2.0-flash",
+        history: [instructionMessage]
       });
       
       // Enviar el mensaje para análisis
@@ -183,34 +172,27 @@ export async function isSchedulingQuery(message) {
         }
       });
       
-      console.log("Estructura de respuesta en isSchedulingQuery:", JSON.stringify(response).substring(0, 100) + "...");
       
       // Extraer texto con manejo para diferentes estructuras
       let responseText = "";
       
       try {
-        // Intento 1: usando text()
-        if (response && response.text) {
-          responseText = response.text();
-        }
-        // Intento 2: usando candidates
-        else if (response && response.candidates && response.candidates[0]) {
-          const candidate = response.candidates[0];
-          if (candidate.content && candidate.content.parts && candidate.content.parts[0]) {
-            responseText = candidate.content.parts[0].text;
-          }
+        // v1.x: response.text es string
+        if (response && typeof response.text === 'string') {
+          responseText = response.text;
+        } else if (response?.candidates?.[0]?.content?.parts?.[0]?.text) {
+          responseText = response.candidates[0].content.parts[0].text;
         }
       } catch (textError) {
-        console.error("Error al extraer texto de respuesta:", textError);
+        logger.error("Error al extraer texto de respuesta:", textError);
         return false;
       }
-      
+
       responseText = responseText.toLowerCase().trim();
-      console.log("Texto de respuesta en isSchedulingQuery:", responseText);
       return responseText.includes("sí") || responseText.includes("si");
       
     } catch (error) {
-      console.error("Error en la detección de agenda con Gemini:", error);
+      logger.error("Error en la detección de agenda con Gemini:", error);
       // Método de fallback - verificación básica basada en palabras clave
       return basicSchedulingCheck(lowerMessage);
     }

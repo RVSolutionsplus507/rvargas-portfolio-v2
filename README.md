@@ -1,154 +1,105 @@
-# Portfolio - Roberto J. Vargas
-
 <div align="center">
-  <img src="https://raw.githubusercontent.com/RVSolutionsplus507/rvargas-portfolio-v2/main/src/assets/logorvs.webp" alt="RV Solutions Plus Logo" width="200"/>
 
-  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-  [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-  [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-  [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-  [![i18next](https://img.shields.io/badge/i18next-26A69A?style=for-the-badge&logo=i18next&logoColor=white)](https://www.i18next.com/)
+# Roberto J. Vargas — Portfolio v1.1.0
 
-  [View Live Demo](https://rvargas.dev) | [GitHub Repository](https://github.com/RVSolutionsplus507/rvargas-portfolio-v2)
+### Full Stack Developer & Tech Lead · RVSolutions Plus
+
+[![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite_5-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-0F172A?style=for-the-badge&logo=tailwind-css&logoColor=38BDF8)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-6D28D9?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![Gemini](https://img.shields.io/badge/Gemini_2.5_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://deepmind.google/technologies/gemini/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+**[Live Demo →](https://rvargas.dev)** · **[GitHub](https://github.com/RVSolutionsplus507/rvargas-portfolio-v2)**
+
+<!-- Add a screenshot here: ![Preview](./src/assets/preview.png) -->
+
 </div>
 
-## 📋 Table of Contents
+---
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Technologies](#️-technologies)
-- [Project Structure](#-project-structure)
-- [Installation & Setup](#-installation--setup)
-- [Usage](#-usage)
-- [Deployment](#-deployment)
-- [Customization](#-customization)
-- [Contact](#-contact)
-- [License](#-license)
+## Features
 
-## 🚀 Overview
+- **Dark / Light Mode** — seamless theme toggle with system preference detection
+- **Bilingual (ES / EN)** — full i18next internationalization, instant switch
+- **AI Virtual Assistant** — powered by Google Gemini 2.5 Pro, with consultation scheduling
+- **Contact Form** — EmailJS integration, zero backend required
+- **WhatsApp Widget** — one-tap direct messaging
+- **Fluid Animations** — Framer Motion transitions + Canvas Confetti on key interactions
+- **Experience Timeline** — visual career journey with animated entries
+- **Tech Carousel** — auto-scrolling brand/stack showcase
+- **Responsive** — mobile-first, tested across all breakpoints
 
-This is my professional portfolio website showcasing my skills, projects, and experience as a Full-Stack Developer. The portfolio is designed to present a comprehensive view of my technical expertise, professional journey, and the projects I've developed throughout my career.
+---
 
-The site is built with modern web technologies for optimal performance and user experience, featuring a responsive design that works seamlessly across devices of all sizes.
+## Quick Start
 
-## ✨ Features
-
-- **Responsive Design** - Optimized for all device sizes
-- **Dark/Light Mode** - Toggle between dark and light themes
-- **Bilingual Support** - Available in both English and Spanish
-- **Interactive UI** - Smooth animations and transitions with Framer Motion
-- **Project Showcase** - Gallery of projects with detailed information and images
-- **Contact Form** - EmailJS integration for direct communication
-- **Resume Section** - Detailed work history with downloadable PDF versions
-- **WhatsApp Integration** - Direct messaging capability via WhatsApp
-- **Performance Optimized** - Fast loading times with code splitting and lazy loading
-
-## 🛠️ Technologies
-
-### Frontend
-- **React** - UI library
-- **Vite** - Build tool and development server
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Animation library
-- **React Router** - Navigation and routing
-- **i18next** - Internationalization framework
-- **React Hook Form** - Form validation
-- **Shadcn UI** - Component library
-
-### Tools & Utilities
-- **EmailJS** - Email functionality
-- **React Icons** - Icon library
-- **Canvas Confetti** - Visual effects
-- **React Infinite Logo Slider** - Smooth carousel for logos
-- **Embla Carousel** - Lightweight carousel component
-
-## 📁 Project Structure
-
-```
-src/
-├── assets/         # Images and static files
-├── components/     # Reusable components
-│   ├── ui/         # Shadcn UI components
-│   └── ...
-├── context/        # React context providers
-├── css/           # Custom CSS styles
-├── hooks/         # Custom React hooks
-├── lib/           # Utility functions
-├── pages/         # Main page components
-└── traducciones/  # Translation files
-    ├── en/        # English translations
-    └── es/        # Spanish translations
+```sh
+git clone https://github.com/RVSolutionsplus507/rvargas-portfolio-v2.git
+cd rvargas-portfolio-v2
+npm install
+cp .env.example .env.local   # fill in your keys (see table below)
+npm run dev
 ```
 
-## 🔧 Installation & Setup
+Open [http://localhost:5173](http://localhost:5173)
 
-1. **Clone the repository**
-   ```sh
-   git clone https://github.com/RVSolutionsplus507/rvargas-portfolio-v2.git
-   cd rvargas-portfolio-v2
-   ```
+```sh
+npm run build    # production build
+npm run preview  # preview production build locally
+```
 
-2. **Install dependencies**
-   ```sh
-   npm install
-   ```
+---
 
-3. **Environment Variables**
-   
-   Create a `.env.local` file in the root directory and add your EmailJS credentials:
-   ```
-   VITE_EMAIL_USER_ID=your_user_id
-   VITE_EMAIL_SERVICE_ID=your_service_id
-   VITE_EMAIL_TEMPLATE_ID=your_template_id
-   ```
+## Environment Variables
 
-4. **Start the development server**
-   ```sh
-   npm run dev
-   ```
+Create `.env.local` in the project root:
 
-5. **Build for production**
-   ```sh
-   npm run build
-   ```
+| Variable                   | Description                                   |
+| -------------------------- | --------------------------------------------- |
+| `VITE_EMAIL_USER_ID`     | EmailJS — your account User ID               |
+| `VITE_EMAIL_SERVICE_ID`  | EmailJS — service ID for your email provider |
+| `VITE_EMAIL_TEMPLATE_ID` | EmailJS — template ID for contact messages   |
+| `VITE_GEMINI_API_KEY`    | Google AI Studio — Gemini 2.5 Pro API key    |
 
-## 📱 Usage
+---
 
-- Navigate to http://localhost:5173 (or the port shown in your terminal)
-- Explore the different sections: About Me, Resume, Projects, and Contact
-- Toggle between light and dark mode using the theme switcher
-- Change language using the language selector
-- View project details by clicking on project cards
+## Tech Stack
 
-## 🚢 Deployment
+| Layer      | Technology                       |
+| ---------- | -------------------------------- |
+| UI Library | React 18                         |
+| Build Tool | Vite 5                           |
+| Styling    | Tailwind CSS + Shadcn UI         |
+| Animations | Framer Motion · Canvas Confetti |
+| i18n       | i18next · react-i18next         |
+| AI         | Google Gemini 2.5 Pro            |
+| Contact    | EmailJS                          |
+| Forms      | React Hook Form                  |
+| Deployment | Vercel                           |
 
-The project is configured for easy deployment on Vercel:
+---
 
-1. Connect your GitHub repository to Vercel
-2. Set up environment variables in the Vercel dashboard
-3. Deploy and enjoy your live portfolio
+## Deployment
 
-## 🎨 Customization
+1. Push to GitHub and connect the repository to Vercel
+2. Add environment variables in **Project → Settings → Environment Variables**
+3. Deploy — Vercel handles the rest automatically on every push to `main`
 
-To customize this portfolio for your own use:
+---
 
-- Replace personal information in the components and translation files
-- Update project details in `src/pages/projects.jsx`
-- Replace images in the `src/assets` directory
-- Modify color schemes in `tailwind.config.js` and `src/index.css`
-- Update resume content and download links
+## Contact
 
-## 📬 Contact
+| Channel  | Details                                                   |
+| -------- | --------------------------------------------------------- |
+| Email    | rvargas@rv-solutions.net                                  |
+| LinkedIn | [Roberto J. Vargas](https://linkedin.com/in/rvsolutionsplus) |
+| GitHub   | [@RVSolutionsplus507](https://github.com/RVSolutionsplus507) |
+| WhatsApp | Via widget on the live site                               |
 
-- Email: rvargas@rv-solutions.net
-- LinkedIn: Roberto J. Vargas
-- GitHub: @RVSolutionsplus507
-- Twitter: @devrvsplus
-
-## 📄 License
-
-© 2025 Roberto J. Vargas. All rights reserved.
+---
 
 <div align="center">
-  <p>Made with ❤️ by Roberto J. Vargas</p>
+  <sub>© 2026 Roberto J. Vargas · RVSolutions Plus · All rights reserved</sub>
 </div>
