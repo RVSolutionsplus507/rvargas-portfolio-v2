@@ -26,12 +26,11 @@ import { useTranslation } from "react-i18next";
 import resumeES from "@/assets/cv/Roberto-Vargas_CV_ES.pdf";
 import resumeEN from "@/assets/cv/Roberto-Vargas_CV_EN.pdf";
 
-const SKILL_COLORS = {
-  frontend: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
-  backend: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
-  infrastructure: "bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300",
-  tools: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
-};
+const HIGHLIGHT_COLORS = [
+  "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
+  "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  "bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300",
+];
 
 const TECH_TAG = "bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary";
 
@@ -143,11 +142,15 @@ const ResumePage = () => {
     },
   ];
 
-  const skillCategories = [
-    { key: "frontend", label: t("frontend"), color: SKILL_COLORS.frontend },
-    { key: "backend", label: t("backend"), color: SKILL_COLORS.backend },
-    { key: "infrastructure", label: t("infrastructure"), color: SKILL_COLORS.infrastructure },
-    { key: "tools", label: t("tools"), color: SKILL_COLORS.tools },
+  const highlights = [
+    { value: "10+", label: t("highlight_exp") },
+    { value: "10+", label: t("highlight_projects") },
+    { value: "9+", label: t("highlight_leadership") },
+  ];
+
+  const languages = [
+    { lang: t("lang_spanish"), level: t("level_native"), color: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" },
+    { lang: t("lang_english"), level: t("level_professional"), color: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300" },
   ];
 
   const handleDownload = (lang) => {
@@ -214,34 +217,48 @@ const ResumePage = () => {
           </CardContent>
         </Card>
 
-        {/* Skills */}
+        {/* Professional Profile */}
         <motion.div {...fadeUp} transition={{ duration: 0.4, delay: 0.15 }}>
           <Card className="hover:shadow-md transition-shadow duration-200">
             <CardHeader className="pb-3">
-              <CardTitle className="text-primary text-base">{t("skills")}</CardTitle>
+              <CardTitle className="text-primary text-base">{t("profile")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {skillCategories.map(({ key, label, color }) => {
-                const skills = t(`skillGroups.${key}`, { returnObjects: true });
-                if (!Array.isArray(skills)) return null;
-                return (
-                  <div key={key}>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                      {label}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${color}`}
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+              <div className="grid grid-cols-3 gap-4">
+                {highlights.map(({ value, label }, i) => (
+                  <div key={i} className="text-center">
+                    <p className="text-2xl font-bold text-primary">{value}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{label}</p>
                   </div>
-                );
-              })}
+                ))}
+              </div>
+
+              <div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  {t("competencies")}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(t("competencyList", { returnObjects: true })).map((item) => (
+                    <span key={item} className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  {t("languages")}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {languages.map(({ lang, level, color }) => (
+                    <span key={lang} className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${color}`}>
+                      <span className="font-semibold">{lang}</span>
+                      <span className="opacity-75">— {level}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
             </CardContent>
           </Card>
         </motion.div>
