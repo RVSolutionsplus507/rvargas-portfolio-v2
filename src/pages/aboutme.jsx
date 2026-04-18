@@ -56,7 +56,7 @@ function AboutMe() {
 
   return (
     <div className=" mx-auto lg:p-6 p-2 overflow-x-hidden lg:overflow-y-auto">
-      <h1 className="text-4xl font-bold mb-8">{t("about")}</h1>
+      <h1 className="text-4xl font-bold mb-8 text-foreground">{t("about")}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <motion.div
@@ -66,9 +66,9 @@ function AboutMe() {
           transition={{ duration: 0.5 }}
           className="md:col-span-2"
         >
-          <Card>
+          <Card className="hover:shadow-md transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">
+              <CardTitle className="font-bold text-primary">
               {t("whoami")}
               </CardTitle>
             </CardHeader>
@@ -98,17 +98,17 @@ function AboutMe() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="md:col-span-2"
         >
-          <Card>
+          <Card className="hover:shadow-md transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">{t("skillstitle")}</CardTitle>
+              <CardTitle className="font-bold text-primary">{t("skillstitle")}</CardTitle>
               <CardDescription>{t("skillsdescription")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <CardTitle className="font-bold text-[#189b49]">
+              <CardTitle className="font-bold text-primary">
               {t("skilltitlefront")}
               </CardTitle>
               <BrandsFront />
-              <CardTitle className="font-bold text-[#189b49]">
+              <CardTitle className="font-bold text-primary">
               {t("skilltitleback")}
               </CardTitle>
               <BrandsBack />
@@ -123,9 +123,9 @@ function AboutMe() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="md:col-span-2"
         >
-          <Card>
+          <Card className="hover:shadow-md transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">
+              <CardTitle className="font-bold text-primary">
               {t("timelinetitle")}
               </CardTitle>
               <CardDescription>{t("timelinedescription")}</CardDescription>
@@ -159,7 +159,7 @@ function AboutMe() {
                           style={{ left: `${position}%` }}
                         />
                       </div>
-                      <div className="flex-shrink-0 w-1/2 text-left pl-5">{item.event}</div>
+                      <div className="flex-shrink-0 w-1/2 text-left pl-5 text-foreground">{item.event}</div>
                     </div>
                   );
                 })}
@@ -174,28 +174,28 @@ function AboutMe() {
           variants={cardVariants}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Card>
+          <Card className="hover:shadow-md transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">
+              <CardTitle className="font-bold text-primary">
               {t("educationtitle")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex items-center space-x-2">
                 <FiBook className="text-muted-foreground" />
-                <span> {t("education1")}</span>
+                <span className="text-foreground"> {t("education1")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <FiAward className="text-muted-foreground" />
-                <span> {t("education2")}</span>
+                <span className="text-foreground"> {t("education2")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <FiAward className="text-muted-foreground" />
-                <span> {t("education3")}</span>
+                <span className="text-foreground"> {t("education3")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <FiAward className="text-muted-foreground" />
-                <span> {t("education4")}</span>
+                <span className="text-foreground"> {t("education4")}</span>
               </div>
             </CardContent>
           </Card>
@@ -207,14 +207,14 @@ function AboutMe() {
           variants={cardVariants}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Card>
+          <Card className="hover:shadow-md transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">
+              <CardTitle className="font-bold text-primary">
               {t("interests")}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+              <ul className="list-disc list-inside space-y-1 text-muted-foreground dark:text-slate-300">
                 <li>{t("interests1")}</li>
                 <li>{t("interests2")}</li>
                 <li>{t("interests3")}</li>
@@ -231,9 +231,9 @@ function AboutMe() {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="md:col-span-2"
         >
-          <Card>
+          <Card className="hover:shadow-md transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="font-bold text-[#189b49]">
+              <CardTitle className="font-bold text-primary">
               {t("reviewstitle")}
               </CardTitle>
               <CardDescription>{t("reviewsdescription")}</CardDescription>
@@ -250,8 +250,8 @@ function AboutMe() {
                       alt={review.name}
                       className="w-24 h-24 rounded-full object-contain dark:bg-white"
                     />
-                    <h3 className="text-lg font-semibold">{review.name}</h3>
-                    <p className="text-center">{review.content}</p>
+                    <h3 className="text-lg font-semibold text-foreground">{review.name}</h3>
+                    <p className="text-center text-foreground">{review.content}</p>
                     <div className="flex space-x-1">
                       {Array.from({ length: review.rating }).map((_, i) => (
                         <FaStar key={i} className="text-yellow-500" />

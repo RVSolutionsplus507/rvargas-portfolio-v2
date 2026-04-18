@@ -5,14 +5,15 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-// Add these new functions for CSRF protection
 export function generateCSRFToken() {
-  return Math.random().toString(36).substring(2, 15) +
-         Math.random().toString(36).substring(2, 15);
+  const array = new Uint8Array(32);
+  window.crypto.getRandomValues(array);
+  return Array.from(array, (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
 export function setupCSRF() {
   const token = generateCSRFToken();
-  document.cookie = `XSRF-TOKEN=${token}; SameSite=Strict; Secure; Path=/`;
+  const isSecure = window.location.protocol === "https:";
+  document.cookie = `XSRF-TOKEN=${token}; SameSite=Strict;${isSecure ? " Secure;" : ""} Path=/`;
   return token;
 }

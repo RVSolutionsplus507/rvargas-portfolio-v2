@@ -1,5 +1,11 @@
 import emailjs from '@emailjs/browser';
 
+const isDev = import.meta.env.DEV;
+const logger = {
+  log: (...args) => isDev && console.log(...args),
+  error: (...args) => isDev && console.error(...args),
+};
+
 const emailjsInit = () => {
   const publicKey = import.meta.env.VITE_EMAIL_USER_ID;
   
@@ -8,11 +14,11 @@ const emailjsInit = () => {
       emailjs.init(publicKey);
       return true;
     } catch (error) {
-      console.error('Error al inicializar EmailJS:', error);
+      logger.error('Error al inicializar EmailJS:', error);
       return false;
     }
   } else {
-    console.error('No se pudo inicializar EmailJS: clave pública no disponible');
+    logger.error('No se pudo inicializar EmailJS: clave pública no disponible');
     return false;
   }
 };
@@ -34,7 +40,7 @@ export const sendCustomEmail = async (data) => {
   
   // Verificar que las variables estén disponibles
   if (!initialized || !serviceId || !templateId) {
-    console.error("Error: Configuración de EmailJS incompleta", configStatus);
+    logger.error("Error: Configuración de EmailJS incompleta", configStatus);
     return Promise.reject(
       new Error("No se pudo enviar el correo: configuración incompleta")
     );
@@ -52,10 +58,10 @@ export const sendCustomEmail = async (data) => {
   try {
     const response = await emailjs
       .send(serviceId, templateId, emailData);
-    console.log("Email enviado correctamente");
+    logger.log("Email enviado correctamente");
     return response;
   } catch (error) {
-    console.error("Error al enviar email:", error);
+    logger.error("Error al enviar email:", error);
     throw error;
   }
 };

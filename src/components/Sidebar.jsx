@@ -48,7 +48,7 @@ const Sidebar = () => {
             <AvatarImage src={mainimage} alt="Roberto J. Vargas" />
             <AvatarFallback>RVargas</AvatarFallback>
           </Avatar>
-          <h2 className="text-2xl font-semibold">Roberto J. Vargas</h2>
+          <h2 className="text-2xl font-semibold text-foreground">Roberto J. Vargas</h2>
           <motion.p
             className="text-lg font-semibold text-primary"
             key={currentRole}
@@ -114,7 +114,7 @@ const Sidebar = () => {
 
         <Separator className="my-4" />
         <div className="flex flex-col items-center space-y-4 font-bold">
-          <a href="mailto:rvargas@rv-solutions.net" className=" hover:underline hover:text-green-500">
+          <a href="mailto:rvargas@rv-solutions.net" className="text-foreground hover:underline hover:text-primary dark:hover:text-primary transition-colors duration-200">
             rvargas@rv-solutions.net
           </a>
         </div>
@@ -123,7 +123,7 @@ const Sidebar = () => {
 
         <footer className="mt-auto">
           <div className="flex justify-center space-x-4">
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="icon" asChild className="hover:text-primary dark:hover:text-primary transition-colors duration-200">
               <a
                 href="https://github.com/RVSolutionsplus507"
                 target="_blank"
@@ -133,7 +133,7 @@ const Sidebar = () => {
                 <span className="sr-only">GitHub</span>
               </a>
             </Button>
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="icon" asChild className="hover:text-primary dark:hover:text-primary transition-colors duration-200">
               <a
                 href="https://www.linkedin.com/in/roberto-j-vargas-d-69631159/"
                 target="_blank"
@@ -143,7 +143,7 @@ const Sidebar = () => {
                 <span className="sr-only">LinkedIn</span>
               </a>
             </Button>
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="icon" asChild className="hover:text-primary dark:hover:text-primary transition-colors duration-200">
               <a
                 href="https://x.com/devrvsplus/"
                 target="_blank"

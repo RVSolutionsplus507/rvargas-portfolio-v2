@@ -66,7 +66,7 @@ useEffect(() => {
         transition={{ duration: 0.5 }}
         className="pt-8 text-center"
       >
-        <h1 className="text-4xl font-bold">{t("contact")}</h1>
+        <h1 className="text-4xl font-bold text-foreground">{t("contact")}</h1>
         <p className="mt-2 text-xl text-primary">{t("hear")}</p>
       </motion.header>
 
@@ -94,9 +94,15 @@ useEffect(() => {
                   </div>
                   <div>
                     <Input
-                      {...register("phone", { required: t("cellphonerequired") })}
+                      {...register("phone", {
+                        required: t("cellphonerequired"),
+                        pattern: {
+                          value: /^[+]?[\d\s\-().]{7,20}$/,
+                          message: t("invalidphone") || "Número de teléfono inválido"
+                        }
+                      })}
                       placeholder={t("cellphone")}
-                      
+
                     />
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
                   </div>
@@ -116,7 +122,10 @@ useEffect(() => {
                   </div>
                   <div>
                     <Textarea
-                      {...register("message", { required: t("messagerequired")})}
+                      {...register("message", {
+                        required: t("messagerequired"),
+                        maxLength: { value: 2000, message: t("messagetoolong") || "Mensaje demasiado largo (máx. 2000 caracteres)" }
+                      })}
                       placeholder={t("message")}
                       rows={4}
                     
@@ -142,17 +151,17 @@ useEffect(() => {
                 <CardDescription>{t("contactdescription")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center space-x-2">
-                  <FaEnvelope className="text-primary" />
-                  <span>rvargas@rv-solutions.net</span>
+                <div className="flex items-center space-x-2 group">
+                  <FaEnvelope className="text-primary transition-transform duration-200 group-hover:scale-110" />
+                  <span className="text-foreground transition-colors duration-200 group-hover:text-primary">rvargas@rv-solutions.net</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <FaPhone className="text-primary" />
-                  <span>+507 6108-3193</span>
+                <div className="flex items-center space-x-2 group">
+                  <FaPhone className="text-primary transition-transform duration-200 group-hover:scale-110" />
+                  <span className="text-foreground transition-colors duration-200 group-hover:text-primary">+507 6108-3193</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <FaMapMarkerAlt className="text-primary" />
-                  <span>Ciudad de Panama, Panama</span>
+                <div className="flex items-center space-x-2 group">
+                  <FaMapMarkerAlt className="text-primary transition-transform duration-200 group-hover:scale-110" />
+                  <span className="text-foreground transition-colors duration-200 group-hover:text-primary">Ciudad de Panama, Panama</span>
                 </div>
               </CardContent>
             </Card>
@@ -184,9 +193,9 @@ useEffect(() => {
           transition={{ duration: 0.5 }}
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
         >
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-            <h2 className="text-2xl font-bold text-green-600 mb-4">{t("thanks")}</h2>
-            <p className="text-gray-700">{t("messagedelivered")}</p>
+          <div className="bg-white dark:bg-zinc-800 p-8 rounded-lg shadow-lg text-center">
+            <h2 className="text-2xl font-bold text-primary mb-4">{t("thanks")}</h2>
+            <p className="text-gray-700 dark:text-gray-200">{t("messagedelivered")}</p>
             <Button onClick={() => setIsSubmitted(false)} className="mt-4">
               Close
             </Button>
