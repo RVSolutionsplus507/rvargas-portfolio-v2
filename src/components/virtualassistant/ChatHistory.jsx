@@ -1,5 +1,6 @@
 import { memo, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import assistentImage from "@/assets/asistente.webp";
@@ -26,6 +27,7 @@ const TypingIndicator = () => (
 );
 
 const ChatHistory = ({ chatHistory, setChatHistory, handleScheduleConsult, isProcessing }) => {
+  const { t } = useTranslation('virtualassistant');
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
@@ -61,12 +63,12 @@ const ChatHistory = ({ chatHistory, setChatHistory, handleScheduleConsult, isPro
               Ambar
             </p>
             <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">
-              Portafolio de Roberto
+              {t('online')}
             </p>
           </div>
 
           <p className="text-slate-600 dark:text-slate-300 text-sm max-w-[220px] leading-relaxed">
-            Hola, soy Ambar, asistente de Portafolio de Roberto. ¿En qué puedo ayudarte hoy?
+            {t('welcome_message')}
           </p>
 
           {/* Sugerencias rápidas */}
@@ -75,18 +77,18 @@ const ChatHistory = ({ chatHistory, setChatHistory, handleScheduleConsult, isPro
               className="w-full text-left text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-green-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 shadow-sm hover:shadow-md"
               onClick={() => {
                 setChatHistory([
-                  { type: "user", content: "¿Qué servicios ofreces?", time: formatTime() },
-                  { type: "assistant", content: "Ofrezco servicios de desarrollo web, aplicaciones móviles, consultoría tecnológica, y soluciones a medida para empresas. ¿Hay alguno en particular que te interese conocer más?", time: formatTime() }
+                  { type: "user", content: t('quick_services_question'), time: formatTime() },
+                  { type: "assistant", content: t('quick_services_answer'), time: formatTime() }
                 ]);
               }}
             >
-              💼 ¿Qué servicios ofreces?
+              {t('quick_services_question')}
             </button>
             <button
               className="w-full text-left text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-green-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-200 shadow-sm hover:shadow-md"
               onClick={handleScheduleConsult}
             >
-              📅 Quiero agendar una consulta
+              {t('quick_schedule_btn')}
             </button>
           </div>
         </div>

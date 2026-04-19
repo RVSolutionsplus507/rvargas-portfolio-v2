@@ -16,5 +16,20 @@
   "placeholder": "Pregúntame sobre servicios, proyectos o tecnología...",
   "enter_hint": "Enter para enviar · Shift+Enter nueva línea",
   "schedule_btn": "Agendar consulta",
-  "dialog_description": "Asistente virtual IA para responder preguntas sobre Roberto Vargas y agendar citas"
+  "dialog_description": "Asistente virtual IA para responder preguntas sobre Roberto Vargas y agendar citas",
+  "welcome_message": "Hola, soy Ambar, asistente de Portafolio de Roberto. ¿En qué puedo ayudarte hoy?",
+  "quick_services_question": "💼 ¿Qué servicios ofreces?",
+  "quick_services_answer": "Ofrezco servicios de desarrollo web, aplicaciones móviles, consultoría tecnológica, y soluciones a medida para empresas. ¿Hay alguno en particular que te interese conocer más?",
+  "quick_schedule_btn": "📅 Quiero agendar una consulta",
+  "form_title": "Agendar Consultoría",
+  "form_name_placeholder": "Tu nombre completo",
+  "form_email_placeholder": "tu@correo.com",
+  "form_phone_placeholder": "Teléfono (opcional)",
+  "form_message_placeholder": "¿Qué tipo de consultoría necesitas?",
+  "form_date_label": "Fecha de la consulta",
+  "form_time_label": "Hora preferida",
+  "form_time_placeholder": "Selecciona una hora",
+  "form_cancel_btn": "Cancelar",
+  "form_submitting": "Enviando...",
+  "form_submit_btn": "Confirmar consulta"
 }

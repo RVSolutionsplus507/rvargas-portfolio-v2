@@ -16,5 +16,20 @@
   "placeholder": "Ask me about services, projects or technology...",
   "enter_hint": "Enter to send · Shift+Enter new line",
   "schedule_btn": "Schedule consultation",
-  "dialog_description": "AI virtual assistant to answer questions about Roberto Vargas and schedule appointments"
+  "dialog_description": "AI virtual assistant to answer questions about Roberto Vargas and schedule appointments",
+  "welcome_message": "Hi, I'm Ambar, Roberto's Portfolio assistant. How can I help you today?",
+  "quick_services_question": "💼 What services do you offer?",
+  "quick_services_answer": "I offer web development, mobile applications, technology consulting, and custom solutions for businesses. Is there any in particular you'd like to know more about?",
+  "quick_schedule_btn": "📅 I want to schedule a consultation",
+  "form_title": "Schedule Consultation",
+  "form_name_placeholder": "Your full name",
+  "form_email_placeholder": "your@email.com",
+  "form_phone_placeholder": "Phone (optional)",
+  "form_message_placeholder": "What type of consultation do you need?",
+  "form_date_label": "Consultation date",
+  "form_time_label": "Preferred time",
+  "form_time_placeholder": "Select a time",
+  "form_cancel_btn": "Cancel",
+  "form_submitting": "Sending...",
+  "form_submit_btn": "Confirm consultation"
 }

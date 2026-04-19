@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,6 +28,7 @@ const ConsultForm = ({
   setShowConsultForm,
   timeSlots
 }) => {
+  const { t } = useTranslation('virtualassistant');
   return (
     <form onSubmit={handleSubmitConsult} className="space-y-2 pr-1 overflow-y-auto max-h-[360px] scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
 
@@ -34,13 +36,13 @@ const ConsultForm = ({
       <div className="flex items-center gap-2 mb-3">
         <div className="h-5 w-1 rounded-full bg-gradient-to-b from-green-600 to-emerald-600" />
         <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 uppercase tracking-wide">
-          Agendar Consultoría
+          {t('form_title')}
         </p>
       </div>
 
       <Input
         type="text"
-        placeholder="Tu nombre completo"
+        placeholder={t('form_name_placeholder')}
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
         required
@@ -48,7 +50,7 @@ const ConsultForm = ({
       />
       <Input
         type="email"
-        placeholder="tu@correo.com"
+        placeholder={t('form_email_placeholder')}
         value={userEmail}
         onChange={(e) => setUserEmail(e.target.value)}
         required
@@ -56,13 +58,13 @@ const ConsultForm = ({
       />
       <Input
         type="tel"
-        placeholder="Teléfono (opcional)"
+        placeholder={t('form_phone_placeholder')}
         value={userPhone}
         onChange={(e) => setUserPhone(e.target.value)}
         className="h-8 text-xs bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus-visible:ring-green-500"
       />
       <Textarea
-        placeholder="¿Qué tipo de consultoría necesitas?"
+        placeholder={t('form_message_placeholder')}
         rows={2}
         value={consultMessage}
         onChange={(e) => setConsultMessage(e.target.value)}
@@ -75,7 +77,7 @@ const ConsultForm = ({
         <div>
           <h4 className="text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-1">
             <CalendarIcon className="h-3 w-3 text-green-500" />
-            Fecha de la consulta
+            {t('form_date_label')}
           </h4>
           <div className="border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 overflow-hidden shadow-sm">
             {selectedDate && (
@@ -129,11 +131,11 @@ const ConsultForm = ({
               <circle cx="12" cy="12" r="10"/>
               <polyline points="12 6 12 12 16 14"/>
             </svg>
-            Hora preferida
+            {t('form_time_label')}
           </h4>
           <Select value={selectedTime} onValueChange={setSelectedTime}>
             <SelectTrigger className="w-full h-8 text-xs bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-green-500">
-              <SelectValue placeholder="Selecciona una hora" />
+              <SelectValue placeholder={t('form_time_placeholder')} />
             </SelectTrigger>
             <SelectContent className="max-h-[150px]">
               {timeSlots.map((time) => (
@@ -155,7 +157,7 @@ const ConsultForm = ({
           size="sm"
           className="h-8 text-xs px-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
         >
-          Cancelar
+          {t('form_cancel_btn')}
         </Button>
         <Button
           type="submit"
@@ -170,10 +172,10 @@ const ConsultForm = ({
                 <span className="w-1 h-1 rounded-full bg-white/80 animate-bounce [animation-delay:150ms]" />
                 <span className="w-1 h-1 rounded-full bg-white/80 animate-bounce [animation-delay:300ms]" />
               </span>
-              Enviando...
+              {t('form_submitting')}
             </span>
           ) : (
-            "Confirmar consulta"
+            t('form_submit_btn')
           )}
         </Button>
       </div>
