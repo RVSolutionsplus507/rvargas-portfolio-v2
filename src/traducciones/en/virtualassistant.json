@@ -1,0 +1,20 @@
+{
+  "phrases": [
+    "Hi! I'm Ambar, your RVSolutions Plus assistant. How can I help you?",
+    "I can guide you about Roberto's web development services and consulting",
+    "RVSolutions Plus creates custom technology solutions for your business",
+    "Have a project in mind? Ask me, I'm here to help you"
+  ],
+  "scheduling_response": "Sure! I'd be happy to help you schedule a consultation. Please fill out the form below so I can add you to the calendar.",
+  "error_response": "Sorry, an error occurred while processing your question. Please try again later.",
+  "success_response": "Thank you {{name}}! Your consultation request for {{date}} at {{time}} has been sent. I'll contact you by email soon to confirm the appointment.",
+  "error_consult": "Sorry, there was an error sending your request. Please try again or contact us directly at: rvargas@rv-solutions.net",
+  "select_date_time": "Please select a date and time for your consultation.",
+  "active_label": "AI Assistant active",
+  "typing": "Typing...",
+  "online": "Online · Roberto's Portfolio",
+  "placeholder": "Ask me about services, projects or technology...",
+  "enter_hint": "Enter to send · Shift+Enter new line",
+  "schedule_btn": "Schedule consultation",
+  "dialog_description": "AI virtual assistant to answer questions about Roberto Vargas and schedule appointments"
+}

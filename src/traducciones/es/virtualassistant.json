@@ -1,0 +1,20 @@
+{
+  "phrases": [
+    "¡Hola! Soy Ambar, tu asistente de RVSolutions Plus. ¿En qué puedo ayudarte?",
+    "Puedo orientarte sobre los servicios de desarrollo web y consultoría de Roberto",
+    "RVSolutions Plus crea soluciones tecnológicas a medida para tu empresa",
+    "¿Tienes un proyecto en mente? Pregúntame, estoy aquí para ayudarte"
+  ],
+  "scheduling_response": "¡Claro! Estaré encantado de ayudarte a programar una consultoría. Por favor, completa el siguiente formulario para que pueda agendarte en mi calendario.",
+  "error_response": "Lo siento, ha ocurrido un error al procesar tu pregunta. Por favor, intenta de nuevo más tarde.",
+  "success_response": "¡Gracias {{name}}! Tu solicitud de consultoría para el {{date}} a las {{time}} ha sido enviada. Pronto te contactaré por correo electrónico para confirmar la cita.",
+  "error_consult": "Lo siento, hubo un error al enviar tu solicitud. Por favor, intenta de nuevo o contacta directamente por correo: rvargas@rv-solutions.net",
+  "select_date_time": "Por favor, selecciona una fecha y hora para tu consultoría.",
+  "active_label": "Asistente IA activo",
+  "typing": "Escribiendo...",
+  "online": "En línea · Portafolio de Roberto",
+  "placeholder": "Pregúntame sobre servicios, proyectos o tecnología...",
+  "enter_hint": "Enter para enviar · Shift+Enter nueva línea",
+  "schedule_btn": "Agendar consulta",
+  "dialog_description": "Asistente virtual IA para responder preguntas sobre Roberto Vargas y agendar citas"
+}

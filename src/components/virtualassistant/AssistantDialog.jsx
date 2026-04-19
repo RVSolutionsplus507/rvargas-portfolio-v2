@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import assistentImage from "@/assets/asistente.webp";
@@ -36,6 +37,8 @@ const AssistantDialog = memo(({
   handleScheduleConsult,
   timeSlots
 }) => {
+  const { t } = useTranslation('virtualassistant');
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="
@@ -53,7 +56,7 @@ const AssistantDialog = memo(({
         [&>button]:backdrop-blur-sm
       ">
         <DialogDescription className="sr-only">
-          Asistente virtual IA para responder preguntas sobre Roberto Vargas y agendar citas
+          {t('dialog_description')}
         </DialogDescription>
 
         {/* Header glassmorphism */}
@@ -88,12 +91,12 @@ const AssistantDialog = memo(({
                       <span className="w-1 h-1 rounded-full bg-green-200 animate-bounce [animation-delay:150ms]" />
                       <span className="w-1 h-1 rounded-full bg-green-200 animate-bounce [animation-delay:300ms]" />
                     </span>
-                    Escribiendo...
+                    {t('typing')}
                   </span>
                 ) : (
                   <span className="flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 inline-block" />
-                    En línea · Portafolio de Roberto
+                    {t('online')}
                   </span>
                 )}
               </p>

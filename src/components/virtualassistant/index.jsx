@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import useVirtualAssistant from '@/hooks/useVirtualAssistant';
 import AssistantDialog from './AssistantDialog';
 import AssistantIcon from './AssistantIcon';
 
 const VirtualAssistantContainer = () => {
+  const { t } = useTranslation('virtualassistant');
   const assistant = useVirtualAssistant();
 
   return (
@@ -18,7 +20,7 @@ const VirtualAssistantContainer = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
               <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
-                Asistente IA activo
+                {t('active_label')}
               </span>
             </div>
           </div>

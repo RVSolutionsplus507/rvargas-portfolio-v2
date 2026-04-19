@@ -1,5 +1,6 @@
 import { memo, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Textarea } from "@/components/ui/textarea";
 import { CalendarIcon } from "@radix-ui/react-icons";
 
@@ -17,6 +18,7 @@ const ChatInput = ({
   handleSubmitQuestion,
   handleScheduleConsult
 }) => {
+  const { t } = useTranslation('virtualassistant');
   const textareaRef = useRef(null);
 
   // Auto-focus al montar
@@ -32,7 +34,7 @@ const ChatInput = ({
       <div className="flex items-end gap-2">
         <Textarea
           ref={textareaRef}
-          placeholder="Pregúntame sobre servicios, proyectos o tecnología..."
+          placeholder={t('placeholder')}
           value={userQuestion}
           onChange={(e) => setUserQuestion(e.target.value)}
           onKeyDown={handleKeyPress}
@@ -85,7 +87,7 @@ const ChatInput = ({
       {/* Fila secundaria: hint + botón agendar */}
       <div className="flex items-center justify-between gap-2">
         <span className="text-[10px] text-slate-400 dark:text-slate-500">
-          Enter para enviar · Shift+Enter nueva línea
+          {t('enter_hint')}
         </span>
 
         <button
@@ -103,7 +105,7 @@ const ChatInput = ({
           "
         >
           <CalendarIcon className="w-3 h-3" />
-          Agendar consulta
+          {t('schedule_btn')}
         </button>
       </div>
     </div>

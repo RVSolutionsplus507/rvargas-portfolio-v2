@@ -12,6 +12,8 @@ import aboutmeEs from "./traducciones/es/aboutme.json";
 import aboutmeEn from "./traducciones/en/aboutme.json";
 import whatsappEs from "./traducciones/es/whatsapp.json";
 import whatsappEn from "./traducciones/en/whatsapp.json";
+import virtualassistantEs from "./traducciones/es/virtualassistant.json";
+import virtualassistantEn from "./traducciones/en/virtualassistant.json";
 
 i18next.use(initReactI18next).init({
     interpolation: { escapeValue: false },
@@ -24,7 +26,8 @@ i18next.use(initReactI18next).init({
             resume: resumeEs,
             sidebar: sidebarEs,
             aboutme: aboutmeEs,
-            whatsapp: whatsappEs
+            whatsapp: whatsappEs,
+            virtualassistant: virtualassistantEs
         },
         en: {
             projects: projectsEn,
@@ -32,7 +35,8 @@ i18next.use(initReactI18next).init({
             resume: resumeEn,
             sidebar: sidebarEn,
             aboutme: aboutmeEn,
-            whatsapp: whatsappEn
+            whatsapp: whatsappEn,
+            virtualassistant: virtualassistantEn
         }
     }
 });
