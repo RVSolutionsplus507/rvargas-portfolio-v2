@@ -1,0 +1,24 @@
+# Cabeceras de Cloudflare Pages para los archivos estáticos. No se aplican a las respuestas de
+# functions/: la Pages Function fija las suyas (no-store, nosniff). Si una cabecera coincide en dos
+# reglas, Pages une los valores con coma: no repetir Cache-Control entre reglas.
+# HTML: sin Cache-Control propio; Pages manda "public, max-age=0, must-revalidate" + ETag.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.emailjs.com; font-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=63072000
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# El sitio también responde en *.pages.dev (producción y previews): fuera de los buscadores
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

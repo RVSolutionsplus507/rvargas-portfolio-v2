@@ -1,5 +1,5 @@
 {
-  // Funciones de Vercel en api/: ESM de Node con imports relativos CON extensión (.ts).
+  // Servidor: lógica de /api/chat (api/) y Pages Function (functions/). Imports relativos CON extensión (.ts).
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.api.tsbuildinfo",
@@ -8,5 +8,5 @@
     "moduleResolution": "NodeNext",
     "types": ["node"]
   },
-  "include": ["api"]
+  "include": ["api", "functions"]
 }

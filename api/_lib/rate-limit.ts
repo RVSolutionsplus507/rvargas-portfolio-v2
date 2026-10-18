@@ -1,11 +1,8 @@
-// Límite de tasa en memoria. Limitaciones: el estado es por instancia de la función
-// y se pierde en cada cold start, así que NO es un límite global exacto: cada instancia
-// concurrente lleva su propio contador. Es una primera barrera; el control real es
-// externo: regla de rate limit del Firewall de Vercel + cuota/presupuesto en Google
-// (ver .env.example). El handler consulta checkIp solo con cuerpo ya validado, y
-// checkGlobal solo justo antes de llamar al modelo.
-import type { IncomingHttpHeaders } from 'node:http'
-import { isIP } from 'node:net'
+// Límite de tasa en memoria. Limitaciones: en Cloudflare el estado vive en cada isolate
+// (uno o varios por data center, reciclados sin aviso), así que NO es un límite global exacto:
+// es una primera barrera. El control real es externo: regla de Rate Limiting/WAF de Cloudflare
+// sobre POST /api/chat + cuota/presupuesto en Google (ver README). El handler consulta checkIp
+// solo con cuerpo ya validado, y checkGlobal solo justo antes de llamar al modelo.
 
 const MINUTE = 60_000
 const DAY = 24 * 60 * MINUTE
@@ -14,53 +11,42 @@ const SHARED = '__shared__'
 const dayKeyOf = (now: number): number => Math.floor(now / DAY)
 const secondsUntilNextDay = (now: number): number => Math.max(1, Math.ceil(((dayKeyOf(now) + 1) * DAY - now) / 1000))
 
-// Agrupa IPv6 por /64 (un cliente suele controlar todo su /64) y desenvuelve IPv4 mapeada
+const IPV4 = /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/
+
+// Agrupa IPv6 por /64 (un cliente suele controlar todo su /64) y desenvuelve IPv4 mapeada.
+// Sin node:net para correr igual en Workers y en Node: el parser de URL valida y canoniza la IPv6.
 function normalizeIp(raw: string): string | null {
   const [ip = ''] = raw.trim().split('%')
-  const family = isIP(ip)
-  if (family === 4) return ip
-  if (family !== 6) return null
+  if (IPV4.test(ip)) return ip
+  if (!/^[\da-f:.]+$/i.test(ip)) return null
 
-  const mapped = /^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/i.exec(ip)
-  const mappedV4 = mapped?.[1]
-  if (mappedV4 !== undefined && isIP(mappedV4) === 4) return mappedV4
-
-  const [head = '', tail = ''] = ip.split('::')
-  const toGroups = (part: string): string[] => {
-    const groups = part === '' ? [] : part.split(':')
-    const last = groups.at(-1)
-    if (last?.includes('.')) {
-      const [a = 0, b = 0, c = 0, d = 0] = last.split('.').map(Number)
-      groups.splice(-1, 1, ((a << 8) | b).toString(16), ((c << 8) | d).toString(16))
-    }
-    return groups
+  let host: string
+  try {
+    host = new URL(`http://[${ip}]`).hostname.slice(1, -1)
+  } catch {
+    return null
   }
-  const headGroups = toGroups(head)
-  const tailGroups = ip.includes('::') ? toGroups(tail) : []
-  const fill = ip.includes('::') ? 8 - headGroups.length - tailGroups.length : 0
-  const groups = [...headGroups, ...Array(Math.max(fill, 0)).fill('0'), ...tailGroups]
-  return `${groups.slice(0, 4).map((g) => g.padStart(4, '0').toLowerCase()).join(':')}::/64`
+  const [head = '', tail = ''] = host.split('::')
+  const headGroups = head === '' ? [] : head.split(':')
+  const tailGroups = tail === '' ? [] : tail.split(':')
+  const fill = host.includes('::') ? 8 - headGroups.length - tailGroups.length : 0
+  const groups = [...headGroups, ...Array<string>(fill).fill('0'), ...tailGroups]
+
+  const [g6 = '0', g7 = '0'] = groups.slice(6)
+  if (groups.slice(0, 5).every((g) => g === '0') && groups[5] === 'ffff') {
+    const hi = Number.parseInt(g6, 16)
+    const lo = Number.parseInt(g7, 16)
+    return `${hi >> 8}.${hi & 255}.${lo >> 8}.${lo & 255}`
+  }
+  return `${groups.slice(0, 4).map((g) => g.padStart(4, '0')).join(':')}::/64`
 }
 
-const firstValue = (value: string | string[] | undefined): string | undefined =>
-  Array.isArray(value) ? value[0] : value
-
-// Orden de confianza (docs de Vercel, "Request headers", verificado 2026-10-17):
-// x-vercel-forwarded-for es idéntico a x-forwarded-for pero NO lo sobrescribe un proxy
-// delante de Vercel; luego el primer valor de x-forwarded-for; luego x-real-ip.
-// Se usa la primera cabecera presente: si trae basura NO se cae a la siguiente y el
-// resultado es null (cubeta compartida estricta).
-export function getClientIp(headers: IncomingHttpHeaders): string | null {
-  const candidates: (string | string[] | undefined)[] = [
-    firstValue(headers['x-vercel-forwarded-for']),
-    firstValue(headers['x-forwarded-for'])?.split(','),
-    firstValue(headers['x-real-ip']),
-  ]
-  for (const candidate of candidates) {
-    const value = Array.isArray(candidate) ? candidate[0] : candidate
-    if (typeof value === 'string' && value.trim()) return normalizeIp(value)
-  }
-  return null
+// En Cloudflare, cf-connecting-ip la fija el borde con la IP real y el cliente no puede falsearla;
+// x-forwarded-for no sirve (Cloudflare conserva lo que mande el cliente y agrega la IP al final).
+// Sin cabecera o con un valor que no es IP: null (cubeta compartida estricta).
+export function getClientIp(headers: Headers): string | null {
+  const value = headers.get('cf-connecting-ip')
+  return value?.trim() ? normalizeIp(value) : null
 }
 
 export type RateLimitResult = { ok: true } | { ok: false; retryAfterSec: number }
