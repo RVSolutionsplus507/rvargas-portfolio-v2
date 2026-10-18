@@ -1,5 +1,4 @@
 // Contrato de POST /api/chat y tipos compartidos entre los módulos de api/_lib (solo tipos: sin código en runtime).
-import type { IncomingHttpHeaders } from 'node:http'
 
 export type ChatLang = 'es' | 'en'
 export type ChatRole = 'user' | 'assistant'
@@ -25,20 +24,14 @@ export type ErrorCode =
 
 export type ChatResponseBody = { reply: string } | { error: ErrorCode }
 
-export type ChatEnv = Readonly<Record<string, string | undefined>>
-
-// Forma mínima que el handler usa de IncomingMessage / ServerResponse (los satisfacen tal cual,
-// también los de Vercel y los de Connect en Vite; los tests pasan dobles sin casts).
-export interface ChatRequest extends AsyncIterable<Uint8Array> {
-  readonly method?: string
-  readonly headers: IncomingHttpHeaders
-}
-
-export interface ChatResponse {
-  statusCode: number
-  readonly headersSent?: boolean
-  setHeader(name: string, value: string | number): unknown
-  end(chunk?: string): unknown
+// Variables del servidor: context.env en Cloudflare Pages, .env en `pnpm run dev`
+export interface ChatEnv {
+  readonly GEMINI_API_KEY?: string
+  readonly GEMINI_MODEL?: string
+  readonly GEMINI_DAILY_CAP?: string
+  readonly ALLOWED_ORIGINS?: string
+  // Hostnames servidos (minúsculas, separados por comas); vacío = sin restricción
+  readonly ALLOWED_HOSTS?: string
 }
 
 export interface GenerateParams {
@@ -50,4 +43,5 @@ export interface GenerateParams {
 
 export type GenerateFn = (params: GenerateParams) => Promise<string>
 
-export type ChatHandler = (req: ChatRequest, res: ChatResponse) => Promise<void>
+// Web estándar: la misma función corre en Cloudflare Pages y en el middleware de Vite
+export type ChatHandler = (request: Request) => Promise<Response>

@@ -29,7 +29,8 @@ DESIGN.md
 docs/
 notes/
 scripts/
-.vercel
+.wrangler/
+.dev.vars*
 coverage/
 .pnpm-store/
 *.tsbuildinfo

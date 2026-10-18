@@ -111,34 +111,33 @@ test('eviction never removes the shared bucket', () => {
   assert.equal(limiter.checkIp(null, T0).ok, false)
 })
 
-test('getClientIp prefers x-vercel-forwarded-for, then x-forwarded-for, then x-real-ip', () => {
-  const all = {
-    'x-vercel-forwarded-for': '203.0.113.5',
-    'x-forwarded-for': '198.51.100.1, 10.0.0.1',
-    'x-real-ip': '192.0.2.9',
-  }
-  assert.equal(getClientIp(all), '203.0.113.5')
-  assert.equal(getClientIp({ 'x-forwarded-for': all['x-forwarded-for'], 'x-real-ip': all['x-real-ip'] }), '198.51.100.1')
-  assert.equal(getClientIp({ 'x-forwarded-for': ['198.51.100.1, 10.0.0.1'] }), '198.51.100.1')
-  assert.equal(getClientIp({ 'x-real-ip': '192.0.2.9' }), '192.0.2.9')
-})
+const ip = (value: string | undefined, extra: Record<string, string> = {}): string | null =>
+  getClientIp(new Headers(value === undefined ? extra : { ...extra, 'cf-connecting-ip': value }))
 
-test('getClientIp does not fall through to other headers when the trusted one is not an IP', () => {
-  assert.equal(getClientIp({ 'x-vercel-forwarded-for': 'garbage', 'x-forwarded-for': '198.51.100.1' }), null)
-  assert.equal(getClientIp({ 'x-vercel-forwarded-for': '', 'x-forwarded-for': '198.51.100.1' }), '198.51.100.1')
+test('getClientIp trusts only cf-connecting-ip and ignores forwarding headers the client can forge', () => {
+  const forged = { 'x-forwarded-for': '198.51.100.1, 10.0.0.1', 'x-real-ip': '192.0.2.9', 'x-vercel-forwarded-for': '192.0.2.10' }
+  assert.equal(ip('203.0.113.5', forged), '203.0.113.5')
+  assert.equal(ip(undefined, forged), null)
+  assert.equal(ip(undefined, { 'x-forwarded-for': '198.51.100.1' }), null)
+  assert.equal(ip(undefined, { 'x-real-ip': '192.0.2.9' }), null)
 })
 
 test('getClientIp returns null when missing or not an IP', () => {
-  assert.equal(getClientIp({}), null)
-  assert.equal(getClientIp({ 'x-real-ip': 'not-an-ip' }), null)
-  assert.equal(getClientIp({ 'x-forwarded-for': '<script>' }), null)
+  for (const bad of ['', '   ', 'not-an-ip', '<script>', '1.2.3', '256.1.1.1', '01.2.3.4', '1:::2', '12345::', '::1]@x', '[::1]', '::1]:80/[']) {
+    assert.equal(ip(bad), null, bad)
+  }
 })
 
 test('getClientIp groups IPv6 addresses by /64 and unwraps IPv4-mapped', () => {
-  const a = getClientIp({ 'x-real-ip': '2001:db8:1:2:aaaa:bbbb:cccc:dddd' })
-  const b = getClientIp({ 'x-real-ip': '2001:0db8:0001:0002::1' })
-  const c = getClientIp({ 'x-real-ip': '2001:db8:1:3::1' })
+  const a = ip('2001:db8:1:2:aaaa:bbbb:cccc:dddd')
+  const b = ip('2001:0DB8:0001:0002::1')
+  const c = ip('2001:db8:1:3::1')
+  assert.equal(a, '2001:0db8:0001:0002::/64')
   assert.equal(a, b)
   assert.notEqual(a, c)
-  assert.equal(getClientIp({ 'x-real-ip': '::ffff:203.0.113.5' }), '203.0.113.5')
+  assert.equal(ip('::1'), '0000:0000:0000:0000::/64')
+  assert.equal(ip('fe80::1%eth0'), 'fe80:0000:0000:0000::/64')
+  assert.equal(ip('::ffff:203.0.113.5'), '203.0.113.5')
+  assert.equal(ip('::FFFF:cb00:7105'), '203.0.113.5')
+  assert.equal(ip(' 203.0.113.5 '), '203.0.113.5')
 })

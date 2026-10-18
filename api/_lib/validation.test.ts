@@ -1,6 +1,5 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import type { ChatRequest } from './types.ts'
 import { MAX_BODY_BYTES, isJsonContentType, readBody, validateChatBody } from './validation.ts'
 
 const valid = () => ({
@@ -132,20 +131,40 @@ test('isJsonContentType accepts application/json with optional charset only', ()
   assert.equal(isJsonContentType('text/plain'), false)
   assert.equal(isJsonContentType('application/x-www-form-urlencoded'), false)
   assert.equal(isJsonContentType('application/jsonp'), false)
-  assert.equal(isJsonContentType(undefined), false)
+  assert.equal(isJsonContentType(null), false)
   assert.equal(isJsonContentType(''), false)
 })
 
-const fakeReq = (chunks: string[], headers: Record<string, string> = {}): ChatRequest => ({
-  headers,
-  async *[Symbol.asyncIterator]() {
-    for (const chunk of chunks) yield Buffer.from(chunk)
-  },
-})
+const fakeReq = (chunks: string[], headers: Record<string, string> = {}): Request => {
+  const encoder = new TextEncoder()
+  const body = new ReadableStream<Uint8Array>({
+    start(controller) {
+      for (const chunk of chunks) controller.enqueue(encoder.encode(chunk))
+      controller.close()
+    },
+  })
+  return new Request('https://rvargas.dev/api/chat', { method: 'POST', headers, body, duplex: 'half' })
+}
 
 test('readBody returns the text when under the cap', async () => {
   const result = await readBody(fakeReq(['{"a":', '1}']))
   assert.deepEqual(result, { ok: true, text: '{"a":1}' })
+})
+
+test('readBody decodes multibyte characters split across chunks', async () => {
+  const bytes = new TextEncoder().encode('"ñ€"')
+  const body = new ReadableStream<Uint8Array>({
+    start(controller) {
+      for (const byte of bytes) controller.enqueue(Uint8Array.of(byte))
+      controller.close()
+    },
+  })
+  const request = new Request('https://rvargas.dev/api/chat', { method: 'POST', body, duplex: 'half' })
+  assert.deepEqual(await readBody(request), { ok: true, text: '"ñ€"' })
+})
+
+test('readBody returns an empty text when there is no body', async () => {
+  assert.deepEqual(await readBody(new Request('https://rvargas.dev/api/chat', { method: 'POST' })), { ok: true, text: '' })
 })
 
 test('readBody flags bodies over the cap while streaming', async () => {
@@ -161,13 +180,19 @@ test('readBody counts bytes, not characters', async () => {
 
 test('readBody rejects early when content-length exceeds the cap', async () => {
   let consumed = false
-  const req = {
-    headers: { 'content-length': String(MAX_BODY_BYTES + 1) },
-    async *[Symbol.asyncIterator]() {
+  const body = new ReadableStream<Uint8Array>({
+    pull(controller) {
       consumed = true
-      yield Buffer.from('x')
+      controller.enqueue(new Uint8Array(1))
+      controller.close()
     },
-  }
-  assert.deepEqual(await readBody(req), { ok: false })
+  }, { highWaterMark: 0 })
+  const request = new Request('https://rvargas.dev/api/chat', {
+    method: 'POST',
+    headers: { 'content-length': String(MAX_BODY_BYTES + 1) },
+    body,
+    duplex: 'half',
+  })
+  assert.deepEqual(await readBody(request), { ok: false })
   assert.equal(consumed, false)
 })

@@ -9,7 +9,7 @@ Live: [https://rvargas.dev](https://rvargas.dev)
 
 ## Stack
 
-React 19 · React Router 8 · TypeScript (strict) · Vite 8 · Tailwind CSS 4 · Motion · i18next (ES/EN) · EmailJS for the contact form · a Vercel serverless function (`api/chat.ts`) for the AI assistant.
+React 19 · React Router 8 · TypeScript (strict) · Vite 8 · Tailwind CSS 4 · Motion · i18next (ES/EN) · EmailJS for the contact form · a Cloudflare Pages Function (`functions/api/chat.ts`) for the AI assistant.
 
 ## Run it
 
@@ -38,7 +38,8 @@ pnpm run dev           # http://localhost:5173, also serves /api/chat
 | `GEMINI_API_KEY` | server only | Model provider key for the assistant |
 | `GEMINI_MODEL` | server only | Optional model override |
 | `GEMINI_DAILY_CAP` | server only | Optional global daily cap on model calls |
-| `ALLOWED_ORIGINS` | server only | Optional comma-separated origins allowed to call `/api/chat` |
+| `ALLOWED_HOSTS` | server only | Hostnames allowed to use `/api/chat`. Fails closed: empty means `rvargas.dev`, `www.rvargas.dev`, `localhost`, `127.0.0.1` and `[::1]`. `*` lifts the restriction (Preview only). A new custom domain (IDN in punycode) must be added to the list |
+| `ALLOWED_ORIGINS` | server only | Optional comma-separated origins allowed to call `/api/chat` besides the request's own origin |
 
 Never give a secret the `VITE_` prefix: it would end up in the public bundle.
 
@@ -61,17 +62,19 @@ Template configuration:
 - In the EmailJS dashboard, restrict the allowed domains to the site's origins and set the usage limits.
 - RVDesk: the email account connected to the EmailJS service (the sender) must be a verified contact in the RVDesk workspace, or the message goes to quarantine for manual triage.
 
-## Deploy (Vercel)
+## Deploy (Cloudflare Pages)
 
-1. Import the repo and set the variables above for Production (use a separate, low-quota key for Previews).
-2. The build runs `pnpm run build`, so a type error fails the deploy.
-3. Add a rate-limit rule in the Vercel Firewall for `POST /api/chat`, and set a spending cap or quota at the model provider. The in-memory limiter in the code is only a first barrier.
+1. Connect the repo in Workers & Pages. Framework preset: none. Build command `pnpm run build`, output directory `dist`. Set `NODE_VERSION=24` (the build also reads `.nvmrc`).
+2. In Settings > Variables and Secrets, for Production and Preview: `GEMINI_API_KEY` as a Secret (a separate, low-quota key for Preview), and the optional `GEMINI_MODEL`, `GEMINI_DAILY_CAP`, `ALLOWED_ORIGINS`. Production does not need `ALLOWED_HOSTS` (the default is `rvargas.dev,www.rvargas.dev` plus localhost; it closes `*.pages.dev`, since the WAF/Rate Limiting rule only covers the custom domain). Preview MUST set `ALLOWED_HOSTS=*` to test the chat. A new custom domain (IDN in punycode) must be added to `ALLOWED_HOSTS`. The `VITE_EMAIL_*` variables are read at build time.
+3. `functions/` is deployed as the `/api/chat` function; `public/_headers` sets the security and cache headers and `public/_redirects` sends `/` to `/aboutme` (302).
+4. Add a Rate Limiting (WAF) rule for `POST /api/chat` and a spending cap or quota at the model provider. The in-memory limiter in the code is per isolate, only a first barrier.
 
 ## Structure
 
 ```
-api/              Vercel function (chat.ts) and its logic in _lib/
-public/           static files, including theme-init.js (theme before first paint)
+api/_lib/         /api/chat logic (Web Request/Response), shared by the Pages Function and the dev server
+functions/        Cloudflare Pages Function (api/chat.ts)
+public/           static files, theme-init.js (theme before first paint), _headers and _redirects
 src/pages/        aboutme, projects, resume, contact
 src/components/   UI, sidebar and the assistant (virtualassistant/)
 src/data/         portfolio content

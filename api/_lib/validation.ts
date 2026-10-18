@@ -1,5 +1,5 @@
 // Validación manual del cuerpo de POST /api/chat. Sin dependencias.
-import type { ChatLang, ChatMessage, ChatRequest, ChatRequestBody, ChatRole } from './types.ts'
+import type { ChatLang, ChatMessage, ChatRequestBody, ChatRole } from './types.ts'
 
 export const MAX_BODY_BYTES = 8 * 1024
 const MAX_MESSAGES = 8
@@ -13,7 +13,7 @@ const isLang = (value: unknown): value is ChatLang => value === 'es' || value ==
 // eslint-disable-next-line no-control-regex
 const CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/
 
-const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+export const isPlainObject = (value: unknown): value is Record<string, unknown> =>
   value !== null && typeof value === 'object' && !Array.isArray(value)
 
 const hasExactKeys = (value: object, keys: readonly string[]): boolean => {
@@ -21,31 +21,37 @@ const hasExactKeys = (value: object, keys: readonly string[]): boolean => {
   return own.length === keys.length && keys.every((key) => own.includes(key))
 }
 
-export function isJsonContentType(header: string | undefined): boolean {
+export function isJsonContentType(header: string | null): boolean {
   if (typeof header !== 'string') return false
   const [mediaType = ''] = header.split(';')
   return mediaType.trim().toLowerCase() === 'application/json'
 }
 
-// Lee el stream con tope duro. Si se pasa del tope sigue drenando un poco
-// (para poder responder 413 sin cortar el socket) y luego corta.
+// Lee el stream con tope duro en bytes. Si se pasa del tope sigue drenando un poco
+// (para poder responder 413 sin cortar la conexión) y luego cancela.
 export type ReadBodyResult = { ok: true; text: string } | { ok: false }
 
-export async function readBody(req: ChatRequest, maxBytes = MAX_BODY_BYTES): Promise<ReadBodyResult> {
-  const declared = Number.parseInt(req.headers['content-length'] ?? '', 10)
+export async function readBody(request: Request, maxBytes = MAX_BODY_BYTES): Promise<ReadBodyResult> {
+  const declared = Number.parseInt(request.headers.get('content-length') ?? '', 10)
   if (Number.isFinite(declared) && declared > maxBytes) return { ok: false }
+  if (!request.body) return { ok: true, text: '' }
 
-  const chunks: Uint8Array[] = []
+  const reader = request.body.getReader()
+  const decoder = new TextDecoder()
+  let text = ''
   let size = 0
-  let exceeded = false
-  for await (const chunk of req) {
-    size += chunk.length
-    if (size > maxBytes) exceeded = true
-    if (size > maxBytes * 4) break
-    if (!exceeded) chunks.push(chunk)
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) break
+    size += value.byteLength
+    if (size > maxBytes * 4) {
+      await reader.cancel()
+      break
+    }
+    if (size <= maxBytes) text += decoder.decode(value, { stream: true })
   }
-  if (exceeded) return { ok: false }
-  return { ok: true, text: Buffer.concat(chunks).toString('utf8') }
+  if (size > maxBytes) return { ok: false }
+  return { ok: true, text: text + decoder.decode() }
 }
 
 // Devuelve { ok: true, data } con el contenido ya recortado, o { ok: false } sin eco del input.

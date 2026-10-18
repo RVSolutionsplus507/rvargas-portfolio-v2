@@ -3,13 +3,16 @@ import type { Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import { mkdirSync, readFileSync, writeFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 import { DEFAULT_LANG, SEO_ROUTES, routeUrl } from './src/seo-routes.ts'
 import { generateWithGemini } from './api/_lib/gemini.ts'
 import { createHandler } from './api/_lib/handler.ts'
 import { applySeoMeta } from './seo-html.ts'
 
-// Genera dist/<ruta>/index.html con metadatos propios para crawlers que no ejecutan JS.
+// Genera dist/<ruta>.html con metadatos propios para crawlers que no ejecutan JS. Cloudflare Pages sirve
+// /aboutme desde aboutme.html (aboutme/index.html lo redirigiría a /aboutme/ y no coincidiría con el canonical).
+// 404.html hace que Pages responda 404 real a rutas inexistentes (sin él, fallback SPA con 200);
+// por eso cada ruta del router debe estar en SEO_ROUTES.
 const seoRoutesPlugin = (): Plugin => {
   let outDir = 'dist'
   return {
@@ -24,33 +27,56 @@ const seoRoutesPlugin = (): Plugin => {
         const { title, description } = langs[DEFAULT_LANG]
         const url = routeUrl(route)
         const html = applySeoMeta(baseHtml, { title, description, url })
-        mkdirSync(path.join(outDir, route), { recursive: true })
-        writeFileSync(path.join(outDir, route, 'index.html'), html)
+        writeFileSync(path.join(outDir, `${route}.html`), html)
       }
+      // Sin canonical (apuntaría a /aboutme) y fuera de los buscadores
+      const notFound = baseHtml
+        .replace(/\s*<link rel="canonical"[^>]*>/, '')
+        .replace(/(<meta name="robots" content=")[^"]*"/, '$1noindex"')
+      writeFileSync(path.join(outDir, '404.html'), notFound)
     },
   }
 }
 
-// Solo en `vite` (serve): monta /api/chat con el mismo handler que Vercel. Las variables del servidor
+const LOOPBACK = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1'])
+
+// Solo en `vite` (serve): monta /api/chat con el mismo handler que la Pages Function. Las variables del servidor
 // (GEMINI_*, ALLOWED_ORIGINS) se pasan al handler y no se exponen al cliente (no llevan prefijo VITE_).
 const chatApiDevPlugin = (): Plugin => ({
   name: 'chat-api-dev',
   apply: 'serve',
   configureServer(server) {
-    const loaded = loadEnv(server.config.mode, process.cwd(), '')
-    const env: Record<string, string | undefined> = { NODE_ENV: process.env.NODE_ENV }
-    for (const [key, value] of Object.entries(loaded)) {
-      if (key.startsWith('GEMINI_') || key === 'ALLOWED_ORIGINS') env[key] = value
-    }
+    const env = loadEnv(server.config.mode, process.cwd(), ['GEMINI_', 'ALLOWED_'])
     const handler = createHandler({ generate: generateWithGemini, env })
 
     server.middlewares.use((req, res, next) => {
-      if (new URL(req.url ?? '', 'http://localhost').pathname !== '/api/chat') return next()
-      // En local no hay proxy que ponga la IP del cliente. Se fijan con = (no ??=) las dos cabeceras de
-      // mayor confianza de getClientIp para que el cliente no pueda falsearlas en desarrollo
-      req.headers['x-vercel-forwarded-for'] = req.socket.remoteAddress
-      req.headers['x-real-ip'] = req.socket.remoteAddress
-      handler(req, res)
+      const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`)
+      if (url.pathname !== '/api/chat') return next()
+
+      // Con --host la clave no debe quedar al alcance de la LAN
+      if (!LOOPBACK.has(req.socket.remoteAddress ?? '')) {
+        res.statusCode = 403
+        res.setHeader('Content-Type', 'application/json; charset=utf-8')
+        return res.end(JSON.stringify({ error: 'FORBIDDEN_ORIGIN' }))
+      }
+
+      const headers = new Headers()
+      for (const [name, value] of Object.entries(req.headers)) {
+        if (typeof value === 'string') headers.set(name, value)
+        else value?.forEach((item) => headers.append(name, item))
+      }
+      // En local no hay Cloudflare: se fija la IP del socket y se pisa cualquier cf-connecting-ip del cliente
+      headers.set('cf-connecting-ip', req.socket.remoteAddress ?? '')
+      const hasBody = req.method !== 'GET' && req.method !== 'HEAD'
+
+      Promise.resolve()
+        .then(() => handler(new Request(url, { method: req.method, headers, body: hasBody ? req : undefined, duplex: 'half' })))
+        .then(async (response) => {
+          res.statusCode = response.status
+          response.headers.forEach((value, name) => res.setHeader(name, value))
+          res.end(await response.text())
+        })
+        .catch(next)
     })
   },
 })
