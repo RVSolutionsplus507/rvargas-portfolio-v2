@@ -1,0 +1,10 @@
+{
+    "notFoundCode": "Error 404",
+    "notFoundTitle": "This page does not exist.",
+    "notFoundHelp": "The address may be mistyped or the page is no longer available.",
+    "notFoundAction": "Go to About me",
+    "errorCode": "Unexpected error",
+    "errorTitle": "Something went wrong.",
+    "errorHelp": "There was a problem loading this page. Go back to the start and try again.",
+    "errorAction": "Back to start"
+}

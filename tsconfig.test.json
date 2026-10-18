@@ -1,0 +1,14 @@
+{
+  // Tests de src/ (node:test): necesitan DOM (importan módulos del cliente) y tipos de Node a la vez.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": ["vite/client", "node"],
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["src/vite-env.d.ts", "src/**/*.test.*"]
+}

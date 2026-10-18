@@ -1,105 +1,82 @@
 <div align="center">
-
-# Roberto J. Vargas — Portfolio v1.1.0
-
-### Full Stack Developer & Tech Lead · RVSolutions Plus
-
-[![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite_5-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-0F172A?style=for-the-badge&logo=tailwind-css&logoColor=38BDF8)](https://tailwindcss.com/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-6D28D9?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
-[![Gemini](https://img.shields.io/badge/Gemini_2.5_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://deepmind.google/technologies/gemini/)
-[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
-
-**[Live Demo →](https://rvargas.dev)** · **[GitHub](https://github.com/RVSolutionsplus507/rvargas-portfolio-v2)**
-
-<!-- Add a screenshot here: ![Preview](./src/assets/preview.png) -->
-
+  <img src="src/assets/logorvs.webp" alt="RVSolutions" width="180" />
+  <h1>Roberto J. Vargas: Portfolio</h1>
 </div>
 
----
+Personal site of Roberto J. Vargas, Technology Solutions Architect: AI and Full Stack development. Bilingual (ES/EN), light and dark theme, and an AI assistant that answers questions about his work and books consultations.
 
-## Features
+Live: [https://rvargas.dev](https://rvargas.dev)
 
-- **Dark / Light Mode** — seamless theme toggle with system preference detection
-- **Bilingual (ES / EN)** — full i18next internationalization, instant switch
-- **AI Virtual Assistant** — powered by Google Gemini 2.5 Pro, with consultation scheduling
-- **Contact Form** — EmailJS integration, zero backend required
-- **WhatsApp Widget** — one-tap direct messaging
-- **Fluid Animations** — Framer Motion transitions + Canvas Confetti on key interactions
-- **Experience Timeline** — visual career journey with animated entries
-- **Tech Carousel** — auto-scrolling brand/stack showcase
-- **Responsive** — mobile-first, tested across all breakpoints
+## Stack
 
----
+React 19 · React Router 8 · TypeScript (strict) · Vite 8 · Tailwind CSS 4 · Motion · i18next (ES/EN) · EmailJS for the contact form · a Vercel serverless function (`api/chat.ts`) for the AI assistant.
 
-## Quick Start
+## Run it
+
+Requires Node 24 (see `.nvmrc`) and pnpm.
 
 ```sh
-git clone https://github.com/RVSolutionsplus507/rvargas-portfolio-v2.git
-cd rvargas-portfolio-v2
-npm install
-cp .env.example .env.local   # fill in your keys (see table below)
-npm run dev
+pnpm install
+cp .env.example .env   # fill in the variables below
+pnpm run dev           # http://localhost:5173, also serves /api/chat
 ```
 
-Open [http://localhost:5173](http://localhost:5173)
+| Command | What it does |
+| --- | --- |
+| `pnpm run typecheck` | `tsc -b` over app, tooling, API and tests |
+| `pnpm run lint` | ESLint |
+| `pnpm test` | Node test runner (API, services, SEO) |
+| `pnpm run build` | Typecheck, then production build into `dist/` |
 
-```sh
-npm run build    # production build
-npm run preview  # preview production build locally
+## Environment variables
+
+| Variable | Where | Purpose |
+| --- | --- | --- |
+| `VITE_EMAIL_USER_ID` | client | EmailJS public key (public by design) |
+| `VITE_EMAIL_SERVICE_ID` | client | EmailJS service (public by design) |
+| `VITE_EMAIL_TEMPLATE_ID` | client | EmailJS template (public by design) |
+| `GEMINI_API_KEY` | server only | Model provider key for the assistant |
+| `GEMINI_MODEL` | server only | Optional model override |
+| `GEMINI_DAILY_CAP` | server only | Optional global daily cap on model calls |
+| `ALLOWED_ORIGINS` | server only | Optional comma-separated origins allowed to call `/api/chat` |
+
+Never give a secret the `VITE_` prefix: it would end up in the public bundle.
+
+## Contact form (EmailJS)
+
+Inquiries (contact page and the assistant's scheduling form) are sent with EmailJS and handled as tickets in RVDesk. The destination is set only in the EmailJS template; the client never sends a recipient.
+
+Template configuration:
+
+| Template field | Value |
+| --- | --- |
+| To Email | `soporte@rvdesk.app` (fixed, not a variable) |
+| Reply-To | `{{reply_to}}` |
+| Subject | `{{subject}}` |
+| From Name | `{{from_name}}` |
+| Body | `{{name}}`, `{{email}}`, `{{phone}}`, `{{message}}`, `{{source}}` |
+
+- Use double braces (`{{ }}`, escaped) for every field; never triple braces (raw HTML).
+- No auto-reply to the visitor.
+- In the EmailJS dashboard, restrict the allowed domains to the site's origins and set the usage limits.
+- RVDesk: the email account connected to the EmailJS service (the sender) must be a verified contact in the RVDesk workspace, or the message goes to quarantine for manual triage.
+
+## Deploy (Vercel)
+
+1. Import the repo and set the variables above for Production (use a separate, low-quota key for Previews).
+2. The build runs `pnpm run build`, so a type error fails the deploy.
+3. Add a rate-limit rule in the Vercel Firewall for `POST /api/chat`, and set a spending cap or quota at the model provider. The in-memory limiter in the code is only a first barrier.
+
+## Structure
+
 ```
-
----
-
-## Environment Variables
-
-Create `.env.local` in the project root:
-
-| Variable                   | Description                                   |
-| -------------------------- | --------------------------------------------- |
-| `VITE_EMAIL_USER_ID`     | EmailJS — your account User ID               |
-| `VITE_EMAIL_SERVICE_ID`  | EmailJS — service ID for your email provider |
-| `VITE_EMAIL_TEMPLATE_ID` | EmailJS — template ID for contact messages   |
-| `VITE_GEMINI_API_KEY`    | Google AI Studio — Gemini 2.5 Pro API key    |
-
----
-
-## Tech Stack
-
-| Layer      | Technology                       |
-| ---------- | -------------------------------- |
-| UI Library | React 18                         |
-| Build Tool | Vite 5                           |
-| Styling    | Tailwind CSS + Shadcn UI         |
-| Animations | Framer Motion · Canvas Confetti |
-| i18n       | i18next · react-i18next         |
-| AI         | Google Gemini 2.5 Pro            |
-| Contact    | EmailJS                          |
-| Forms      | React Hook Form                  |
-| Deployment | Vercel                           |
-
----
-
-## Deployment
-
-1. Push to GitHub and connect the repository to Vercel
-2. Add environment variables in **Project → Settings → Environment Variables**
-3. Deploy — Vercel handles the rest automatically on every push to `main`
-
----
-
-## Contact
-
-| Channel  | Details                                                   |
-| -------- | --------------------------------------------------------- |
-| Email    | rvargas@rv-solutions.net                                  |
-| LinkedIn | [Roberto J. Vargas](https://linkedin.com/in/rvsolutionsplus) |
-| GitHub   | [@RVSolutionsplus507](https://github.com/RVSolutionsplus507) |
-| WhatsApp | Via widget on the live site                               |
-
----
-
-<div align="center">
-  <sub>© 2026 Roberto J. Vargas · RVSolutions Plus · All rights reserved</sub>
-</div>
+api/              Vercel function (chat.ts) and its logic in _lib/
+public/           static files, including theme-init.js (theme before first paint)
+src/pages/        aboutme, projects, resume, contact
+src/components/   UI, sidebar and the assistant (virtualassistant/)
+src/data/         portfolio content
+src/traducciones/ es/ and en/ strings
+src/hooks, lib, services, context/
+seo-html.ts       per-route metadata injected at build time
+vite.config.ts    build, SEO pages and local /api/chat
+```

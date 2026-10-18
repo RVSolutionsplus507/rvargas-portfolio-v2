@@ -1,0 +1,10 @@
+{
+    "notFoundCode": "Error 404",
+    "notFoundTitle": "Esta página no existe.",
+    "notFoundHelp": "La dirección puede estar mal escrita o la página ya no está disponible.",
+    "notFoundAction": "Ir a Sobre mí",
+    "errorCode": "Error inesperado",
+    "errorTitle": "Algo salió mal.",
+    "errorHelp": "Ocurrió un problema al cargar esta página. Vuelve al inicio e inténtalo de nuevo.",
+    "errorAction": "Volver al inicio"
+}

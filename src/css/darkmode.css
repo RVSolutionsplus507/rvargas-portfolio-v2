@@ -1,116 +1,31 @@
-.tdnn {
+/* Icono del interruptor de tema: luna visible en oscuro, sol visible en claro */
+.theme-toggle__icons {
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 1.25rem;
-    width: 2.25rem;
-    border-radius: 0.75rem;
-    transition: all 0.3s ease;
-    background: linear-gradient(to right, #d4d4d8, #fafafa);
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    padding: 0.125rem;
-    z-index: 100;
-    overflow: hidden;
-}
-
-.day {
-    background: linear-gradient(to right, #fbbf24, #f97316);
-}
-
-.moon {
-    position: absolute;
     display: block;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    left: 0.125rem;
-    width: 0.9rem;
-    height: 0.9rem;
-    background-color: #94a3b8;
-    box-shadow: 
-        inset 0.15rem -0.15rem 0 0 #64748b,
-        0 0 0.15rem rgba(0, 0, 0, 0.2);
-    transform: translateX(0) scale(1);
-    opacity: 1;
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
-.sun {
+.theme-toggle__icon {
     position: absolute;
-    border-radius: 50%;
-    right: 0.125rem;
-    width: 0.9rem;
-    height: 0.9rem;
-    background-color: #fbbf24;
-    box-shadow: 0 0 0.15rem rgba(251, 191, 36, 0.8);
-    transition: all 0.3s ease;
-    transform: translateX(0) scale(0);
+    inset: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle__icon--sun,
+.theme-toggle[aria-checked="false"] .theme-toggle__icon--moon {
     opacity: 0;
+    transform: rotate(-60deg) scale(0.6);
 }
 
-.day .moon {
-    transform: translateX(1.25rem) scale(0);
-    opacity: 0;
-}
-
-.day .sun {
-    transform: translateX(-1.25rem) scale(1);
+.theme-toggle[aria-checked="true"] .theme-toggle__icon--moon,
+.theme-toggle[aria-checked="false"] .theme-toggle__icon--sun {
     opacity: 1;
+    transform: none;
 }
 
-/* Añadir indicador de posición que se mueve */
-.tdnn::after {
-    content: '';
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-    background-color: #ffffff;
-    border-radius: 50%;
-    top: 0.125rem;
-    left: 0.125rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.1);
-    z-index: -1;
-}
-
-.day::after {
-    left: calc(100% - 1.125rem);
-    background-color: #ffffff;
-}
-
-/* Rayos del sol */
-.sun::before, .sun::after {
-    content: '';
-    position: absolute;
-    background-color: #fbbf24;
-    box-shadow: 0 0 0.125rem rgba(251, 191, 36, 0.8);
-}
-
-/* Rayos verticales */
-.sun::before {
-    height: 0.4rem;
-    width: 0.1rem;
-    top: -0.3rem;
-    left: 0.4rem;
-    border-radius: 0.1rem;
-}
-
-.sun::after {
-    height: 0.4rem;
-    width: 0.1rem;
-    bottom: -0.3rem;
-    left: 0.4rem;
-    border-radius: 0.1rem;
-}
-
-/* Rayos horizontales */
-.sun::before, .sun::after {
-    box-shadow: 
-        0 0 0.1rem rgba(251, 191, 36, 0.8),
-        0.3rem 0.3rem 0 -0.05rem #fbbf24,
-        -0.3rem 0.3rem 0 -0.05rem #fbbf24,
-        0.3rem -0.3rem 0 -0.05rem #fbbf24,
-        -0.3rem -0.3rem 0 -0.05rem #fbbf24,
-        0.3rem 0 0 -0.05rem #fbbf24,
-        -0.3rem 0 0 -0.05rem #fbbf24;
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle__icon {
+        transition: none;
+    }
 }

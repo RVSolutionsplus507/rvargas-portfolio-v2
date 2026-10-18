@@ -1,47 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/logorvs.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- SEO Meta Tags -->
-    <meta
-      name="description"
-      content="Rvargas.dev - The personal portfolio of Roberto Vargas showcasing projects and skills in full-stack development."
-    />
-    <meta
-      name="keywords"
-      content="Rvargas, portfolio, full-stack developer, web development, projects, skills"
-    />
-    <meta name="author" content="Roberto Vargas" />
+    <title>Sobre mí | Roberto J. Vargas, Arquitecto de Soluciones Tecnológicas en Panamá</title>
+    <meta name="description" content="Arquitecto de soluciones y líder de tecnología en Panamá. Más de 10 años en TI liderando equipos. Software a medida, integraciones e IA aplicada." />
+    <meta name="keywords" content="Roberto Vargas, arquitecto de soluciones tecnológicas, inteligencia artificial, desarrollo Full Stack, Panamá, portafolio, React, Node.js, TypeScript" />
+    <meta name="author" content="Roberto J. Vargas" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#09090b" />
+    <link rel="canonical" href="https://rvargas.dev/aboutme" />
+    <!-- Tema antes del primer paint: sin defer/async a propósito (debe bloquear el render para evitar el destello) -->
+    <script src="/theme-init.js"></script>
 
-    <!-- Security headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://upload.wikimedia.org; connect-src 'self' https://generativelanguage.googleapis.com https://*.zoho.com https://api.emailjs.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self' https://*.google.com https://generativelanguage.googleapis.com https://*.zoho.com;">
-  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <!-- Tipografía: Geist auto-hospedada (el CSS declara las @font-face) -->
+    <link rel="preload" href="/node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Rvargas.dev - Portfolio" />
-    <meta
-      property="og:description"
-      content="The personal portfolio of Roberto Vargas showcasing projects and skills in full-stack development."
-    />
-    <meta property="og:image" content="/src/assets/logorvs.webp" />
-    <meta property="og:url" content="https://rvargas.dev" />
+    <!-- Iconos y manifest -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Roberto J. Vargas" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_PA" />
+    <meta property="og:title" content="Sobre mí | Roberto J. Vargas, Arquitecto de Soluciones Tecnológicas en Panamá" />
+    <meta property="og:description" content="Arquitecto de soluciones y líder de tecnología en Panamá. Más de 10 años en TI liderando equipos. Software a medida, integraciones e IA aplicada." />
+    <meta property="og:url" content="https://rvargas.dev/aboutme" />
+    <meta property="og:image" content="https://rvargas.dev/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roberto J. Vargas, Arquitecto de Soluciones Tecnológicas" />
 
-    <!-- Twitter Card Meta Tags -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Rvargas.dev - Portfolio" />
-    <meta
-      name="twitter:description"
-      content="The personal portfolio of Roberto Vargas showcasing projects and skills in full-stack development."
-    />
-    <meta name="twitter:image" content="/src/assets/logorvs.webp" />
-    <title>Rvargas.dev - Portfolio</title>
+    <meta name="twitter:site" content="@devrvsplus" />
+    <meta name="twitter:title" content="Sobre mí | Roberto J. Vargas, Arquitecto de Soluciones Tecnológicas en Panamá" />
+    <meta name="twitter:description" content="Arquitecto de soluciones y líder de tecnología en Panamá. Más de 10 años en TI liderando equipos. Software a medida, integraciones e IA aplicada." />
+    <meta name="twitter:image" content="https://rvargas.dev/og-image.jpg" />
+
+    <!-- Datos estructurados (bloque de datos, no se ejecuta: no requiere 'unsafe-inline') -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://rvargas.dev/#person",
+            "name": "Roberto J. Vargas",
+            "jobTitle": "Arquitecto de soluciones y líder de tecnología",
+            "description": "Arquitecto de soluciones y líder de tecnología en Panamá. Más de 10 años en TI liderando equipos. Software a medida, integraciones e IA aplicada.",
+            "url": "https://rvargas.dev",
+            "image": "https://rvargas.dev/icon-512.png",
+            "address": { "@type": "PostalAddress", "addressCountry": "PA" },
+            "sameAs": [
+              "https://github.com/RVSolutionsplus507",
+              "https://www.linkedin.com/in/roberto-j-vargas-d-69631159/",
+              "https://x.com/devrvsplus/"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://rvargas.dev/#website",
+            "name": "Roberto J. Vargas",
+            "url": "https://rvargas.dev",
+            "inLanguage": ["es", "en"],
+            "publisher": { "@id": "https://rvargas.dev/#person" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
