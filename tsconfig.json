@@ -1,0 +1,10 @@
+{
+  // Solución: no compila nada por sí mismo. `tsc -b` recorre los proyectos referenciados.
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" },
+    { "path": "./tsconfig.api.json" },
+    { "path": "./tsconfig.test.json" }
+  ]
+}

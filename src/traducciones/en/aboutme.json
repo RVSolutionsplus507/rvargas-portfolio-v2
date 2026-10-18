@@ -1,34 +1,150 @@
 {
-    "about": "About Me",
-    "contentreview1": "Exceptional IT Manager who consistently delivered high-quality projects ahead of schedule and beyond expectations.",
-    "contentreview2": "A top-notch expert who delivers outstanding results. I wouldn't hesitate to recommend them to anyone.",
-    "contentreview3": "With his analytical and professional approach, he can develop exceptional platforms and streamline our internal operations.",
-    "timeline1":"Senior Tech Support", 
-    "timeline2":"IT Manager", 
-    "timeline3": "FullStack Developer", 
-    "timeline4": "Latino Tech Leader at Tribu",
-    "timelinetitle": "Journey",
-    "timelinedescription": "My professional journey",
-    "whoami": "Who am I?",
-    "whoamicontent": "I'm a Full Stack Developer and IT Manager with 10+ years building digital solutions that actually move the business forward. I design end-to-end web architectures, lead technical teams, and manage cloud infrastructure — all under the same role. I don't just write code: I translate business goals into scalable systems, ship them to production, and keep them running. I've worked across startups, law firms, marinas, and logistics companies — adapting technology to every context. When I'm not in the editor, I'm exploring new tech, traveling, or planning the next project.",
-    "badge1": "Full Stack Developer",
-    "badge2": "IT Manager",
-    "badge3": "Remote Ready",
-    "skillstitle": "Skills",
-    "skillsdescription": "My technical proficiencies",
-    "skilltitlefront": "Frontend",
-    "skilltitleback": "Backend",
-    "educationtitle": "Education",
-    "education1": "System Engineer",
-    "education2": "Full-Stack Web Development Certification (4Geeks)",
-    "education3": "Project Management (ADEN)",
-    "education4": "IT Support Professional Certificate (Google)",
-    "interests": "Interests",
-    "interests1": "Freelance Web/APP Developer",
-    "interests2": "Process Automation",
-    "interests3": "Network Infrastructure",
-    "interests4": "FullStack Development Projects",
-    "reviewstitle": "Reviews",
-    "reviewsdescription": "What my clients say about me"
-
+  "education1": "System Engineer",
+  "education2": "Full-Stack Web Development Certification (4Geeks)",
+  "education3": "Project Management (ADEN)",
+  "education4": "IT Support Professional Certificate (Google)",
+  "hero": {
+    "eyebrow": "About me",
+    "title1": "Software and AI that work in production.",
+    "title2": "Technical leadership, architecture and applied AI.",
+    "lead": "I've spent more than ten years leading technology teams. I design companies' architecture, custom software, integrations and AI, and I run the in-house development team that builds them.",
+    "ai": "Before choosing a technology I make sure I understand the problem, and I explain what I'm ruling out and why. I've applied AI to business processes and strategy since it became available.",
+    "availability": "Available",
+    "location": "Panama City",
+    "statYears": "years in IT",
+    "statProjects": "projects in production",
+    "ctaProjects": "See projects",
+    "ctaContact": "Contact me"
+  },
+  "stack": {
+    "title": "Tech stack, layer by layer",
+    "intro": "Frontend, backend, data, AI, operations and infrastructure: the layers I use to take a system to production. If your business already uses other tools, I connect to them.",
+    "projectsTitle": "Featured projects",
+    "hint": "Hover, focus with the keyboard or tap a technology to see which projects use it. Each project opens its page.",
+    "techUsedBy": "{{tech}} is used in: {{projects}}.",
+    "techNoProjects": "{{tech}} doesn't appear in these featured projects; it's part of my experience in other systems.",
+    "projectUses_one": "{{project}} uses {{count}} technology from this stack.",
+    "projectUses_other": "{{project}} uses {{count}} technologies from this stack.",
+    "litInLayer": "related technologies in this layer",
+    "layers": {
+      "ai": "I wire AI and automation into the processes and systems your business already uses: chatbots, ERP and accounting integrations. Ambar, this site's AI assistant, answers questions about my projects and what I can do for your business.",
+      "frontend": "I build web apps with React, Next.js and TypeScript, and mobile apps with Expo.",
+      "backend": "I design the architecture and APIs that connect a company's systems, with the database, authentication and payments.",
+      "tools": "Tests, containers and deployment to ship every system to production and keep it running.",
+      "infra": "I run servers, networks and security across hybrid on-prem and cloud environments."
+    },
+    "ambarCta": "Try it",
+    "ambarCtaLabel": "Try it: open the chat with Ambar",
+    "techExample": "{{tech}} is an example of a system I connect to; it doesn't appear in these featured projects.",
+    "more": "and more",
+    "examples": "Examples: Zoho, QuickBooks, Xero, SAP, ERP, payment gateways… and whichever ones your business already uses."
+  },
+  "rvdesk": {
+    "eyebrow": "Success story",
+    "title": "RVDesk",
+    "intro": "RVDesk is a support and project-tracking SaaS, a product of my own built for other companies. Your customers' emails become tickets, get classified with AI, are quoted in Zoho Books and scheduled in Zoho Calendar.",
+    "cta": "Explore RVDesk",
+    "newTab": "opens in a new tab",
+    "flowIntro": "This is how an email travels until it's handled; each step shows the stack layer that makes it possible.",
+    "flowLabel": "Journey of an email in RVDesk",
+    "layersLabel": "Stack layers in this step",
+    "steps": {
+      "mail": {
+        "title": "An email comes in",
+        "desc": "The customer's email reaches RVDesk's inbound email service."
+      },
+      "verify": {
+        "title": "The sender is verified",
+        "desc": "The message signature and sender are validated. If the sender isn't verified, the email is quarantined instead of creating a ticket."
+      },
+      "ai": {
+        "title": "AI classifies it",
+        "desc": "An AI model classifies the email and reports its confidence level. It only runs in authorized workspaces and under a daily budget."
+      },
+      "board": {
+        "title": "The ticket lands on the board",
+        "desc": "The ticket appears on a kanban board. Isolation between customers is enforced by PostgreSQL row-level security (RLS)."
+      },
+      "quote": {
+        "title": "Quote in Zoho Books",
+        "desc": "The quote for the job is managed in Zoho Books."
+      },
+      "visit": {
+        "title": "Visit in Zoho Calendar",
+        "desc": "The customer visit is scheduled in Zoho Calendar."
+      },
+      "portal": {
+        "title": "The customer follows it in their portal",
+        "desc": "The customer checks the status of their request in a dedicated portal."
+      }
+    }
+  },
+  "services": {
+    "title": "What I can do for your business",
+    "intro": "Four ways to work together, from idea to production.",
+    "cta": "Let's talk about your project",
+    "items": {
+      "software": {
+        "title": "Architecture and custom software",
+        "desc": "I design the architecture and build web and mobile apps, APIs and internal dashboards, all the way to production.",
+        "points": [
+          "Web app with React and Next.js, and API with Node.js and PostgreSQL.",
+          "Mobile app with Expo when the case needs it.",
+          "Automated tests and production deployment."
+        ]
+      },
+      "ai": {
+        "title": "AI and automation applied to your business",
+        "desc": "First I define where AI helps your operation and where it doesn't. Then I integrate it and keep it under control.",
+        "points": [
+          "Processes worth automating, prioritized by business impact.",
+          "Chatbots and automatic classification of emails or tickets, with a confidence level.",
+          "Usage and spending limits, so AI costs don't get out of hand."
+        ]
+      },
+      "infra": {
+        "title": "Infrastructure and operations",
+        "desc": "Servers, networks and security across hybrid, on-premises and cloud environments, so what gets built runs reliably.",
+        "points": [
+          "Physical and virtual servers on Windows and Linux (VMware, Hyper-V, Proxmox).",
+          "Corporate networks, firewall and VPN.",
+          "Backup and disaster recovery, Docker containers and deployment."
+        ]
+      },
+      "integrations": {
+        "title": "I connect to the system you already use",
+        "desc": "I won't ask you to switch tools: I integrate what's new with what your business already has, so data stops being copied by hand.",
+        "points": [
+          "Connection through REST APIs, SOAP or whatever channel each system offers.",
+          "Data kept in sync between systems, without copying it by hand.",
+          "End-to-end flow testing before going to production."
+        ]
+      }
+    },
+    "examples": "Examples: Zoho, QuickBooks, Xero, SAP, ERP, payment gateways… and whichever ones your business already uses."
+  },
+  "formation": {
+    "title": "Certifications"
+  },
+  "workflow": {
+    "title": "How I work",
+    "steps": {
+      "understand": {
+        "title": "Understand the business",
+        "desc": "I start with the problem and the result you expect, before choosing the technology."
+      },
+      "design": {
+        "title": "Design the architecture",
+        "desc": "I explain the decisions, the alternatives I ruled out and the risks of each path."
+      },
+      "build": {
+        "title": "Build and connect",
+        "desc": "I develop the software, integrations and AI on top of what you already use."
+      },
+      "operate": {
+        "title": "Operate and improve",
+        "desc": "I leave the system stable in production, with metrics and continuous improvement."
+      }
+    }
+  }
 }

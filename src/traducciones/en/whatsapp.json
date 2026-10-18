@@ -1,7 +1,5 @@
 {
-    "hi": "Hi!",
-    "help": "Text me if you need more information.",
-    "submit": "Submit",
-    "text": "Chat with me!",
-    "online": "Online"
+    "message": "Hi Roberto, I saw your portfolio and I'd like to talk about a project.",
+    "cta": "Message me on WhatsApp",
+    "newTab": "opens in a new tab"
 }

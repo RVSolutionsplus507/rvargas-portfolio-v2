@@ -3,8 +3,10 @@
     "resume": "Resume",
     "projects": "Projects",
     "contact": "Contact Me",
-    "footer": "© 2025 Made with ❤️ All rights reserved.",
-    "role1": "FullStack Developer",
-    "role2": "Senior IT Engineer",
-    "role3": "IT Manager"
+    "skipToContent": "Skip to content",
+    "navLabel": "Main navigation",
+    "darkMode": "Dark mode",
+    "switchLanguage": "Cambiar a Español",
+    "loading": "Loading…",
+    "role": "Technology Solutions Architect"
 }

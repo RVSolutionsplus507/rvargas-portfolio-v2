@@ -1,36 +1,49 @@
 {
   "projects": "My Projects",
-  "projectdescription": "Explore my latest work and side projects.",
-  "search": "Search projects...",
-  "demo": "Live Demo",
-  "noprojects": "No projects found matching your search.",
-  "loading": "Loading projects...",
-  "title1": "Conectando Más",
-  "description1": "Real-time multiplayer digital card game that invites players to explore emotions, ideas, and experiences through play. Perfect for families, educators, and professionals looking to spark meaningful dialogue.",
-  "title2": "Pagos Online - Almacenajes",
-  "description2": "Official Almacenajes SA e-commerce platform with multi-gateway payment integration. Connected in real-time to the SiteLink system for storage unit management, delivering a seamless and secure shopping experience.",
-  "title3": "Landing Page Almacenajes SA",
-  "description3": "Official Almacenajes SA website — Panama's leading mini-storage chain. Built with Astro for maximum performance, advanced SEO, and Google Analytics integration for optimized lead generation.",
-  "title4": "RVSFiscal",
-  "description4": "Fiscal printing system for RVSolutions+ clients in the Republic of Panama. Integrated with QuickBooks and Zoho to automate electronic invoicing, reduce manual errors, and ensure full tax compliance.",
-  "title5": "SBM - Electric System",
-  "description5": "Business solution for reading electrical consumption at pedestals and automated billing for Shelter Bay Marina. Optimizes energy management and eliminates manual billing errors.",
-  "title6": "Attorney File Management System",
-  "description6": "Web system for comprehensive file, client, and case management for a law firm. Enables real-time tracking of legal processes with secure role-based access control.",
-  "title7": "Landing Page - Haus Panama",
-  "description7": "Official Haus Panama website — real estate portal specializing in apartment and house sales across Panama. Built with Astro for maximum speed, advanced SEO, and a premium user experience.",
-  "title8": "Documenta V2",
-  "description8": "Enterprise web app integrated with Zoho One to manage Semah's accounts payable requests. Connected to Zoho Books with email integration for a fully digital and traceable approval workflow.",
-  "title9": "Landing Page - Astre Panama",
-  "description9": "Official website for Proyecto Astre — a luxury real estate development in Panama City. Premium design with Astro and React for a stunning visual experience, optimized for buyer acquisition.",
-  "title10": "Conference Rooms Booking System",
-  "description10": "Business booking system for Semah's conference rooms. Real-time availability management with secure authentication and automatic notifications for a frictionless experience.",
-  "title11": "Request Form",
-  "description11": "Digital platform for managing service requests at Almacenajes SA. Optimized workflow with real-time validation, automatic notifications, and Firebase storage.",
-  "title12": "E-commerce Template",
-  "description12": "Production-ready online store template with product catalog, shopping cart, and user authentication. Built with React and Firebase, adaptable to any digital business.",
-  "title13": "Mauad&Mauad - Website",
-  "description13": "Corporate website for Mauad&Mauad Law Firm. Professional and elegant design with Shadcn UI, showcasing the firm's legal services, team, and track record.",
-  "title14": "SBM - Route System",
-  "description14": "Business solution under development for managing and booking transportation routes at Shelter Bay Marina. Automates ticket sales and real-time transfer tracking."
+  "page": {
+    "title": "Projects",
+    "lead": "Systems that are up and running, and projects I built for real teams and businesses.",
+    "listTitle": "Project list",
+    "privacyNote": "Screenshots use demo data or are retouched so they do not show personal data."
+  },
+  "filters": {
+    "layerGroup": "Filter by stack layer",
+    "allLayers": "All layers",
+    "tech": "Technology",
+    "allTechs": "All technologies",
+    "reset": "Clear filters",
+    "total_one": "{{count}} project",
+    "total_other": "{{count}} projects",
+    "matching": "{{matching}} of {{total}} projects match; the rest are dimmed",
+    "empty": "No project combines that layer and that technology."
+  },
+  "card": {
+    "type": {
+      "live": "Live SaaS",
+      "internal": "Internal project"
+    },
+    "stack": "Technologies",
+    "moreTechs": "+{{count}} more",
+    "viewDetail": "View details",
+    "noMatch": "does not match the active filter",
+    "visit": "Visit {{name}}",
+    "newTab": "opens in a new tab"
+  },
+  "detail": {
+    "close": "Close details",
+    "what": "What it does",
+    "how": "How it works",
+    "stack": "Stack",
+    "internalOf": "Internal project of {{company}}: it has no public site."
+  },
+  "layerBar": {
+    "label": "Stack layers it touches: {{layers}}"
+  },
+  "gallery": {
+    "label": "Screenshots",
+    "position": "Screenshot {{current}} of {{total}}",
+    "prev": "Previous screenshot",
+    "next": "Next screenshot",
+    "goTo": "Go to screenshot {{number}}"
+  }
 }

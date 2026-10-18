@@ -3,8 +3,10 @@
     "resume": "Currículum",
     "projects": "Proyectos",
     "contact": "Contáctame",
-    "footer": "© 2025 Hecho con ❤️ Todos los derechos reservados.",
-    "role1": "Desarrollador FullStack",
-    "role2": "Ingeniero Senior de TI",
-    "role3": "Gerente de TI"
+    "skipToContent": "Saltar al contenido",
+    "navLabel": "Navegación principal",
+    "darkMode": "Modo oscuro",
+    "switchLanguage": "Switch to English",
+    "loading": "Cargando…",
+    "role": "Arquitecto de Soluciones Tecnológicas"
 }

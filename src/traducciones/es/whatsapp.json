@@ -1,7 +1,5 @@
 {
-    "hi": "Hola!",
-    "help": "Escríbeme para resolver tus dudas!",
-    "submit": "Enviar",
-    "text": "Escríbeme!",
-    "online": "En Línea"
+    "message": "Hola Roberto, vi tu portafolio y quiero conversar sobre un proyecto.",
+    "cta": "Escríbeme por WhatsApp",
+    "newTab": "se abre en una pestaña nueva"
 }

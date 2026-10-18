@@ -23,3 +23,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Solo código en GitHub: docs, notas y herramientas locales
+DESIGN.md
+docs/
+notes/
+scripts/
+.vercel
+coverage/
+.pnpm-store/
+*.tsbuildinfo
+.env.*
+!.env.example
+*.pem
